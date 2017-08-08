@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '~> 5.0.1'
 
 # Use Puma as the app server
-gem 'puma', '~> 3.0'
+gem 'puma', '~> 3.7.1'
 
 # Use Rack Timeout. Read more: https://github.com/heroku/rack-timeout
 gem 'rack-timeout', '~> 0.4'
