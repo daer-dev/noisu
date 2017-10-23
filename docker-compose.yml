@@ -1,35 +1,43 @@
 version: '2'
 
 services:
+
   postgres:
     image: 'postgres:9.5'
-    environment:
-      POSTGRES_USER: 'noisu'
-      POSTGRES_PASSWORD: 'yourpassword'
+    env_file:
+      - './config/env/postgres'
     ports:
       - '5432:5432'
     volumes:
       - 'postgres:/var/lib/postgresql/data'
 
   redis:
-    image: 'redis:3.2-alpine'
+    image:   'redis:3.2-alpine'
     command: redis-server --requirepass yourpassword
     ports:
       - '6379:6379'
     volumes:
       - 'redis:/var/lib/redis/data'
 
-  website:
+  web:
     depends_on:
       - 'postgres'
       - 'redis'
     build: .
+    command: ./bin/start.sh
     ports:
       - '3000:3000'
     volumes:
       - '.:/noisu'
+    volumes_from: # Mounts the "/bundle" volume of the "bundle" image in "/bundle" inside this container.
+      - bundle
     env_file:
-      - '.env'
+      - './config/env/web'
+
+  bundle:
+    image: busybox
+    volumes:
+      - /bundle
 
   sidekiq:
     depends_on:
@@ -40,7 +48,7 @@ services:
     volumes:
       - '.:/noisu'
     env_file:
-      - '.env'
+      - './config/env/web'
 
   cable:
     depends_on:
@@ -52,7 +60,7 @@ services:
     volumes:
       - '.:/noisu'
     env_file:
-      - '.env'
+      - './config/env/web'
 
 volumes:
   redis:

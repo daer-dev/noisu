@@ -1,5 +1,3 @@
----
-
 development: &default
   adapter: redis
   url: <%= ENV['ACTION_CABLE_BACKEND_URL'] %>
