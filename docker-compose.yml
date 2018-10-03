@@ -5,7 +5,7 @@ services:
   postgres:
     image: 'postgres:9.5'
     env_file:
-      - './config/env/postgres'
+      - './config/.env'
     ports:
       - '5432:5432'
     volumes:
@@ -32,7 +32,7 @@ services:
     volumes_from: # Mounts the "/bundle" volume of the "bundle" image in "/bundle" inside this container.
       - bundle
     env_file:
-      - './config/env/web'
+      - './config/.env'
 
   bundle:
     image: busybox
@@ -48,7 +48,7 @@ services:
     volumes:
       - '.:/noisu'
     env_file:
-      - './config/env/web'
+      - './config/.env'
 
   cable:
     depends_on:
@@ -60,7 +60,7 @@ services:
     volumes:
       - '.:/noisu'
     env_file:
-      - './config/env/web'
+      - './config/.env'
 
 volumes:
   redis:

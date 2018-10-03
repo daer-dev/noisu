@@ -7,5 +7,4 @@
 .byebug_history
 /vendor/bundle
 /public/assets/*
-/config/env/web
-/config/env/postgres
+/config/.env
