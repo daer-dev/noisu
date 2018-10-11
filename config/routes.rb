@@ -1,3 +1,7 @@
 Rails.application.routes.draw do
-  root 'pages#home'
+  resources :boards do
+    resources :notes
+  end
+
+  root 'boards#index'
 end

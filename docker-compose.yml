@@ -3,64 +3,77 @@ version: '2'
 services:
 
   postgres:
-    image: 'postgres:9.5'
+    image:   postgres:11-alpine
+    restart: always
     env_file:
-      - './config/.env'
+      - ./config/.env
     ports:
-      - '5432:5432'
+      - 5432:5432
     volumes:
-      - 'postgres:/var/lib/postgresql/data'
+      - postgres:/var/lib/postgresql/data
 
   redis:
-    image:   'redis:3.2-alpine'
-    command: redis-server --requirepass yourpassword
+    image:   redis:4.0.11-alpine
+    command: redis-server --requirepass password
     ports:
-      - '6379:6379'
+      - 6379:6379
     volumes:
-      - 'redis:/var/lib/redis/data'
-
-  web:
-    depends_on:
-      - 'postgres'
-      - 'redis'
-    build: .
-    command: ./bin/start.sh
-    ports:
-      - '3000:3000'
-    volumes:
-      - '.:/noisu'
-    volumes_from: # Mounts the "/bundle" volume of the "bundle" image in "/bundle" inside this container.
-      - bundle
-    env_file:
-      - './config/.env'
-
-  bundle:
-    image: busybox
-    volumes:
-      - /bundle
+      - redis:/var/lib/redis/data
 
   sidekiq:
     depends_on:
-      - 'postgres'
-      - 'redis'
-    build: .
-    command: sidekiq -C config/sidekiq.yml.erb
+      - postgres
+      - redis
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    command: ./bin/start_sidekiq.sh
     volumes:
-      - '.:/noisu'
+      - .:/noisu
+    volumes_from: # Mounts the "/bundle" volume of the "bundle" image in "/bundle" inside this container.
+      - bundle
     env_file:
-      - './config/.env'
+      - ./config/.env
 
   cable:
     depends_on:
-      - 'redis'
-    build: .
-    command: puma -p 28080 cable/config.ru
+      - redis
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    command: ./bin/start_cable.sh
     ports:
-      - '28080:28080'
+      - 28080:28080
     volumes:
-      - '.:/noisu'
+      - .:/noisu
+    volumes_from:
+      - bundle
     env_file:
-      - './config/.env'
+      - ./config/.env
+
+  web:
+    depends_on:
+      - postgres
+      - redis
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    command: ./bin/start_web.sh
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/noisu
+    volumes_from:
+      - bundle
+    env_file:
+      - ./config/.env
+    tty:        true
+    stdin_open: true
+
+  bundle:
+    image: busybox:1
+    volumes:
+      - /bundle
 
 volumes:
   redis:

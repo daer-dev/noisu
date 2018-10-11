@@ -1,0 +1,38 @@
+<%
+@boards ||= [ @board ]
+
+if @boards
+  @boards.each do |board|
+%>
+    App.cable.subscriptions.create({
+      channel: 'BoardsChannel',
+      room:    "<%= board.id %>"
+    }, {
+      received(data) {
+        this.appendLine(data);
+      },
+
+      appendLine(data) {
+        var html = this.createLine(data);
+        $('[data-room-id="<%= board.id %>]').append(html);
+      },
+
+      createLine(data) {
+        <%
+        replace_vars = {
+          text: '##note.text##'
+        }
+        %>
+        var html = '<%= escape_javascript render 'notes/note', text: replace_vars %>';
+
+        <% replace_vars.each do |field, replace_var|
+          html.replace(<%= field %>, data['<%= replace_var %>']);
+        <% end %>
+
+        return html;
+      }
+    });
+<%
+  end
+end
+%>

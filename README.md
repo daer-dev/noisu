@@ -5,21 +5,34 @@ Colaborative boards, no limits!
 ## Development and provision
 
 ```bash
-chmod +x bin/*.sh                         # Execute first to make all custom scripts executable.
-docker-compose run web bin/rails db:setup # To have the database ready.
-docker-compose up                         # To run the entire environment.
+chmod +x bin/*.sh                                               # Execute first to make all custom scripts executable.
+docker-compose up                                               # Builds and run the entire environment.
+
+docker-compose exec web bash                                    # To enter the CLI of the web container.
+docker-compose run web bundle install --binstubs                # Installs new gems with their executable file in /bin.
+docker-compose up --build                                       # Runs the entire environment building it first -again-.
 ```
 
-## Some useful Heroku commands
+## Docker commands
 
 ```bash
-heroku login           # Identification with your user in Heroku.
+docker ps -a                                                    # Lists all the containers.
+docker images                                                   # Lists all the images.
+docker volume ls                                                # Lists all the volumes.
+
+./bin/reset_docker.sh                                           # Deletes all Docker's volumes, images and containers.
+```
+
+## Heroku commands
+
+```bash
+heroku login                                                    # Identification with your user in Heroku.
 heroku container:login
 ```
 
 ```bash
-heroku create -a ENV['HEROKU_PROJECT_NAME'] # [OPTIONAL] App creation. Only needed the first time and if you don't have the project created yet.
-./bin/env_vars_to_heroku.sh                 # Exports the environment vars to Heroku.
+heroku create -a ENV['HEROKU_PROJECT_NAME']                     # [OPTIONAL] App creation. Only needed the first time and if you don't have the project created yet.
+./bin/env_vars_to_heroku.sh                                     # Exports the environment vars to Heroku.
 ```
 
 ```bash
@@ -35,8 +48,8 @@ heroku maintenance:on -a ENV['HEROKU_PROJECT_NAME']             # [OPTIONAL] Ena
 ```bash
 heroku logs --tail -a ENV['HEROKU_PROJECT_NAME']
 
-heroku run rails console -a ENV['HEROKU_PROJECT_NAME'] # To enter into the remote Rails console.
-heroku run bash -a ENV['HEROKU_PROJECT_NAME']          # To enter into the server's terminal. Any command can be executed as if you were there like "heroku run INSERT_COMMAND_HERE -a ENV['HEROKU_PROJECT_NAME']".
+heroku run rails console -a ENV['HEROKU_PROJECT_NAME']          # To enter into the remote Rails console.
+heroku run bash -a ENV['HEROKU_PROJECT_NAME']                   # To enter into the server's terminal. Any command can be executed as if you were there like "heroku run INSERT_COMMAND_HERE -a ENV['HEROKU_PROJECT_NAME']".
 
-heroku config -a ENV['HEROKU_PROJECT_NAME']            # Value of every environment var available.
+heroku config -a ENV['HEROKU_PROJECT_NAME']                     # Value of every environment var available.
 ```

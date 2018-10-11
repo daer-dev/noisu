@@ -1,27 +1,27 @@
 source 'https://rubygems.org'
 
-gem 'rails',        '~> 5.0.1'
-gem 'puma',         '~> 3.7.1'
-gem 'rack-timeout', '~> 0.4'
-gem 'jbuilder',     '~> 2.5'
-gem 'pg',            '~> 0.18'
-gem 'redis-rails',  '~> 5.0.0.pre'
-gem 'sidekiq',      '~> 4.2'
-gem 'sass-rails',   '~> 5.0'
-gem 'uglifier',     '>= 1.3.0'
-gem 'jquery-rails'
-gem 'turbolinks',   '~> 5'
-gem 'haml-rails',   '~> 1.0'
-gem 'rubocop',      require: false
+gem 'rails',          '5.0.7'
+gem 'puma',           '3.7.1'
+gem 'jbuilder',       '2.7.0'
+gem 'pg',             '0.21.0'
+gem 'redis-rails',    '5.0.2'
+gem 'sidekiq',        '4.2.10'
+gem 'sass-rails',     '5.0.7'
+gem 'uglifier',       '4.1.19'
+gem 'jquery-rails',   '4.3.3'
+gem 'turbolinks',     '5.2.0'
+gem 'haml-rails',     '1.0.0'
+gem 'rubocop',        '0.59.2', require: false
+gem 'friendly_id',    '5.2.4'
 
 group  :development, :test do
   gem 'byebug', platform: :mri
 end
 
 group  :development do
-  gem 'rack-mini-profiler',    '~> 0.10'
-  gem 'web-console',           '~> 3.3.0'
-  gem 'listen',                '~> 3.0.5'
+  gem 'rack-mini-profiler'
+  gem 'web-console'
+  gem 'listen'
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-watcher-listen'
 end

@@ -1,0 +1,4 @@
+= render 'boards/board', room_id: 'all'
+
+- @boards.each do |board|
+  = link_to board.name, board_path(board.slug)
