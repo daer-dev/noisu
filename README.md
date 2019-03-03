@@ -5,7 +5,7 @@ Colaborative boards, no limits!
 ## Development and provision
 
 ```bash
-chmod +x bin/*.sh                                               # Execute first to make all custom scripts executable.
+chmod +x scripts/*.sh                                           # Execute first to make all custom scripts executable.
 docker-compose up                                               # Builds and run the entire environment.
 
 docker-compose exec web bash                                    # To enter the CLI of the web container.
@@ -20,7 +20,7 @@ docker ps -a                                                    # Lists all the 
 docker images                                                   # Lists all the images.
 docker volume ls                                                # Lists all the volumes.
 
-./bin/reset_docker.sh                                           # Deletes all Docker's volumes, images and containers.
+./scripts/reset-docker.sh                                       # Deletes all Docker's volumes, images and containers.
 ```
 
 ## Heroku commands
@@ -32,7 +32,7 @@ heroku container:login
 
 ```bash
 heroku create -a ENV['HEROKU_PROJECT_NAME']                     # [OPTIONAL] App creation. Only needed the first time and if you don't have the project created yet.
-./bin/env_vars_to_heroku.sh                                     # Exports the environment vars to Heroku.
+./scripts/send-env-to-heroku.sh                                 # Exports the environment vars to Heroku.
 ```
 
 ```bash

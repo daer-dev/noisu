@@ -27,7 +27,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.web
-    command: ./bin/start_sidekiq.sh
+    command: ./scripts/start-sidekiq.sh
     volumes:
       - .:/noisu
     volumes_from: # Mounts the "/bundle" volume of the "bundle" image in "/bundle" inside this container.
@@ -41,7 +41,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.web
-    command: ./bin/start_cable.sh
+    command: ./scripts/start-cable.sh
     ports:
       - 28080:28080
     volumes:
@@ -51,18 +51,35 @@ services:
     env_file:
       - ./config/.env
 
+  webpack:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+      args:
+        precompile_assets: 'not'
+    command: ./scripts/start-webpack-dev.sh
+    volumes:
+      - .:/noisu:cached
+    ports:
+      - 3035:3035
+    env_file:
+      - ./config/.env
+
   web:
     depends_on:
       - postgres
       - redis
+      - cable
+      - webpack
     build:
       context: .
       dockerfile: Dockerfile.web
-    command: ./bin/start_web.sh
+    command: ./scripts/start-web.sh
     ports:
       - 3000:3000
     volumes:
       - .:/noisu
+      - .:/noisu:cached
     volumes_from:
       - bundle
     env_file:
