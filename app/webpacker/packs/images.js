@@ -1,1 +1,1 @@
-import '../images'
+require.context('../src/images', true);

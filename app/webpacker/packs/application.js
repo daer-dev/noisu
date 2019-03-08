@@ -5,4 +5,4 @@ import 'bootstrap/dist/js/bootstrap';
 Rails.start();
 Turbolinks.start();
 
-import '../assets/javascripts/common';
+import '../src/javascripts/common';

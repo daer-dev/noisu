@@ -8,4 +8,8 @@
 /vendor/bundle
 /public/assets/*
 /config/.env
-node_modules
+node_modules/public/packs
+/public/packs-test
+/node_modules
+yarn-debug.log*
+.yarn-integrity

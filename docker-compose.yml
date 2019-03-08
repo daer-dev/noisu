@@ -1,55 +1,60 @@
 version: '2'
 
+volumes:
+
+  redis:
+  postgres:
+
 services:
 
   postgres:
-    image:   postgres:11-alpine
-    restart: always
-    env_file:
-      - ./config/.env
+    image:    postgres:11-alpine
+    env_file: ./config/.env
+    restart:  always
     ports:
       - 5432:5432
     volumes:
       - postgres:/var/lib/postgresql/data
 
   redis:
-    image:   redis:4.0.11-alpine
-    command: redis-server --requirepass password
+    build:
+      context:    .
+      dockerfile: Dockerfile.redis
+    env_file: ./config/.env
+    command:  ./scripts/start-redis.sh
     ports:
       - 6379:6379
     volumes:
       - redis:/var/lib/redis/data
 
   sidekiq:
+    build:
+      context:    .
+      dockerfile: Dockerfile.web
+    env_file: ./config/.env
+    command:  ./scripts/start-sidekiq.sh
     depends_on:
       - postgres
       - redis
-    build:
-      context: .
-      dockerfile: Dockerfile.web
-    command: ./scripts/start-sidekiq.sh
     volumes:
       - .:/noisu
-    volumes_from: # Mounts the "/bundle" volume of the "bundle" image in "/bundle" inside this container.
+    volumes_from:
       - bundle
-    env_file:
-      - ./config/.env
 
   cable:
+    build:
+      context:    .
+      dockerfile: Dockerfile.web
+    env_file: ./config/.env
+    command:  ./scripts/start-cable.sh
     depends_on:
       - redis
-    build:
-      context: .
-      dockerfile: Dockerfile.web
-    command: ./scripts/start-cable.sh
     ports:
       - 28080:28080
     volumes:
       - .:/noisu
     volumes_from:
       - bundle
-    env_file:
-      - ./config/.env
 
   webpack:
     build:
@@ -57,41 +62,37 @@ services:
       dockerfile: Dockerfile.web
       args:
         precompile_assets: 'not'
-    command: ./scripts/start-webpack-dev.sh
-    volumes:
-      - .:/noisu:cached
+    env_file: ./config/.env
+    command:  ./scripts/start-webpack-dev.sh
     ports:
       - 3035:3035
-    env_file:
-      - ./config/.env
+    volumes:
+      - .:/noisu:cached
+    volumes_from:
+      - bundle
 
   web:
+    build:
+      context:    .
+      dockerfile: Dockerfile.web
+    env_file:   ./config/.env
+    command:    ./scripts/start-web.sh
+    tty:        true
+    stdin_open: true
     depends_on:
       - postgres
       - redis
+      - sidekiq
       - cable
       - webpack
-    build:
-      context: .
-      dockerfile: Dockerfile.web
-    command: ./scripts/start-web.sh
     ports:
       - 3000:3000
     volumes:
       - .:/noisu
-      - .:/noisu:cached
     volumes_from:
       - bundle
-    env_file:
-      - ./config/.env
-    tty:        true
-    stdin_open: true
 
   bundle:
     image: busybox:1
     volumes:
       - /bundle
-
-volumes:
-  redis:
-  postgres:

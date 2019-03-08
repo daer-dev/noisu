@@ -5,8 +5,7 @@ Colaborative boards, no limits!
 ## Development and provision
 
 ```bash
-chmod +x scripts/*.sh                                           # Execute first to make all custom scripts executable.
-docker-compose up                                               # Builds and run the entire environment.
+docker-compose up                                               # Builds and run the entire environment. Run with "--force-recreate" if needed.
 
 docker-compose exec web bash                                    # To enter the CLI of the web container.
 docker-compose run web bundle install --binstubs                # Installs new gems with their executable file in /bin.
@@ -20,7 +19,7 @@ docker ps -a                                                    # Lists all the 
 docker images                                                   # Lists all the images.
 docker volume ls                                                # Lists all the volumes.
 
-./scripts/reset-docker.sh                                       # Deletes all Docker's volumes, images and containers.
+./scripts/reset-docker.sh                                       # Deletes all Docker's volumes and containers. Run with "--destroy-images" to delete them too.
 ```
 
 ## Heroku commands

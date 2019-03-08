@@ -1,4 +1,7 @@
 Rails.application.configure do
+  # Disables a lot of unnecessary checkups on Yarn.
+  config.webpacker.check_yarn_integrity = false
+
   # In the development environment your application's code is reloaded on every request, so no restart is necessary between changes.
   config.cache_classes = false
 
@@ -42,7 +45,4 @@ Rails.application.configure do
 
   # Use an evented file watcher to asynchronously detect changes in source code, routes, locales, etc. This feature depends on the "listen" gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
-
-  # Disables a lot of unnecessary checkups on Yarn.
-  config.webpacker.check_yarn_integrity = false
 end

@@ -1,5 +1,4 @@
-# https://hub.docker.com/_/ruby/
-FROM ruby:2.5.1
+FROM ruby:2.6.1
 
 ARG precompile_assets
 
@@ -29,11 +28,14 @@ WORKDIR $INSTALL_PATH
 
 COPY Gemfile Gemfile.lock ./
 
+RUN gem update --system && gem install bundler
 RUN bundle install --binstubs
 
 COPY . .
 
 VOLUME ["$INSTALL_PATH/public"]
+
+CMD chmod 777 scripts/*.sh bin/webpack-dev-server
 
 CMD scripts/potential-assets-precompile.sh $precompile_assets
 
