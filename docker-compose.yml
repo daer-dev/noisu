@@ -19,7 +19,7 @@ services:
   redis:
     build:
       context:    .
-      dockerfile: Dockerfile.redis
+      dockerfile: dockerfiles/redis.dockerfile
     env_file: ./config/.env
     command:  ./scripts/start-redis.sh
     ports:
@@ -30,7 +30,7 @@ services:
   sidekiq:
     build:
       context:    .
-      dockerfile: Dockerfile.web
+      dockerfile: dockerfiles/web.dockerfile
     env_file: ./config/.env
     command:  ./scripts/start-sidekiq.sh
     depends_on:
@@ -44,7 +44,7 @@ services:
   cable:
     build:
       context:    .
-      dockerfile: Dockerfile.web
+      dockerfile: dockerfiles/web.dockerfile
     env_file: ./config/.env
     command:  ./scripts/start-cable.sh
     depends_on:
@@ -59,7 +59,7 @@ services:
   webpack:
     build:
       context: .
-      dockerfile: Dockerfile.web
+      dockerfile: dockerfiles/web.dockerfile
       args:
         precompile_assets: 'not'
     env_file: ./config/.env
@@ -74,7 +74,7 @@ services:
   web:
     build:
       context:    .
-      dockerfile: Dockerfile.web
+      dockerfile: dockerfiles/web.dockerfile
     env_file:   ./config/.env
     command:    ./scripts/start-web.sh
     tty:        true
