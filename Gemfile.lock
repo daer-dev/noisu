@@ -41,13 +41,22 @@ GEM
     arel (7.1.4)
     ast (2.4.0)
     builder (3.2.3)
+    bundler-audit (0.6.1)
+      bundler (>= 1.2.0, < 3)
+      thor (~> 0.18)
     byebug (11.0.0)
+    childprocess (0.9.0)
+      ffi (~> 1.0, >= 1.0.11)
     coderay (1.1.2)
-    concurrent-ruby (1.1.4)
+    colorize (0.8.1)
+    concurrent-ruby (1.1.5)
     connection_pool (2.2.2)
     crass (1.0.4)
     erubis (2.7.0)
     execjs (2.7.0)
+    fasterer (0.5.0)
+      colorize (~> 0.7)
+      ruby_parser (>= 3.12.0)
     ffi (1.10.0)
     flamegraph (0.9.5)
     friendly_id (5.2.4)
@@ -70,6 +79,7 @@ GEM
       ruby_parser (~> 3.5)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
+    iniparse (1.4.4)
     jaro_winkler (1.5.2)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
@@ -92,6 +102,9 @@ GEM
     nio4r (2.3.1)
     nokogiri (1.10.1)
       mini_portile2 (~> 2.4.0)
+    overcommit (0.46.0)
+      childprocess (~> 0.6, >= 0.6.3)
+      iniparse (~> 1.4)
     parallel (1.14.0)
     parser (2.6.0.0)
       ast (~> 2.4.0)
@@ -108,6 +121,7 @@ GEM
     pry-remote (0.1.8)
       pry (~> 0.9)
       slop (~> 3.0)
+    psych (3.1.0)
     puma (3.7.1)
     rack (2.0.6)
     rack-mini-profiler (1.0.2)
@@ -163,14 +177,18 @@ GEM
       redis-store (>= 1.2, < 2)
     redis-store (1.6.0)
       redis (>= 2.2, < 5)
-    rubocop (0.59.2)
+    rubocop (0.65.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.5, != 2.5.1.1)
       powerpack (~> 0.1)
+      psych (>= 3.1.0)
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
-      unicode-display_width (~> 1.0, >= 1.0.1)
+      unicode-display_width (~> 1.4.0)
+    rubocop-rails_config (0.4.3)
+      railties (>= 3.0)
+      rubocop (~> 0.58)
     ruby-progressbar (1.10.0)
     ruby_dep (1.5.0)
     ruby_parser (3.12.0)
@@ -209,7 +227,7 @@ GEM
       thread_safe (~> 0.1)
     uglifier (4.1.19)
       execjs (>= 0.3.0, < 3)
-    unicode-display_width (1.5.0)
+    unicode-display_width (1.4.1)
     webpacker (3.5.5)
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
@@ -222,12 +240,15 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler-audit (= 0.6.1)
   byebug
+  fasterer (= 0.5.0)
   flamegraph
   friendly_id (= 5.2.4)
   haml-rails (= 1.0.0)
   jbuilder (= 2.7.0)
   memory_profiler
+  overcommit (= 0.46.0)
   pg (= 0.21.0)
   pry-nav
   pry-rails
@@ -236,7 +257,8 @@ DEPENDENCIES
   rack-mini-profiler
   rails (= 5.0.7)
   redis-rails (= 5.0.2)
-  rubocop (= 0.59.2)
+  rubocop (= 0.65.0)
+  rubocop-rails_config (= 0.4.3)
   sassc (= 2.0.1)
   sidekiq (= 4.2.10)
   spring
@@ -247,4 +269,4 @@ DEPENDENCIES
   webpacker (= 3.5.5)
 
 BUNDLED WITH
-   1.17.3
+   2.0.1

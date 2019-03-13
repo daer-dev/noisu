@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module BoardHelper
   def broadcast_rooms
     [
-      'all',
+      "all",
       params[:board_id]
     ]
   end

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class CreateBoards < ActiveRecord::Migration[5.0]
   def change
-    create_table 'noisu.boards' do |t|
+    create_table "noisu.boards" do |t|
       t.string   :name,                     null: false
       t.string   :description
       t.string   :picture

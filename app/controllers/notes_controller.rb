@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NotesController < ApplicationController
   def index
     @notes = Note.where(board_id: params[:board_id]).all
@@ -10,9 +12,9 @@ class NotesController < ApplicationController
     @note = Note.new(allowed_params)
 
     if @note.save
-      BoardsChannel.broadcast_to(broadcast_rooms, {
+      BoardsChannel.broadcast_to(broadcast_rooms,
         text: params[:note][:text]
-      })
+      )
     else
       redirect_to boards_path(params[:board_id])
     end

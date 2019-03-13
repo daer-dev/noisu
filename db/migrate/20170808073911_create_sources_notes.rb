@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class CreateSourcesNotes < ActiveRecord::Migration[5.0]
   def change
-    create_table 'noisu.sources_notes' do |t|
+    create_table "noisu.sources_notes" do |t|
       t.references :board,   null: false
       t.references :source,  null: false
       t.references :user,    null: false

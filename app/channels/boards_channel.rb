@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BoardsChannel < ApplicationCable::Channel
   def subscribed
     @boards.each do |board|

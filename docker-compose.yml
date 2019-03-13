@@ -7,6 +7,33 @@ volumes:
 
 services:
 
+  web:
+    build:
+      context:    .
+      dockerfile: dockerfiles/web.dockerfile
+    env_file:   ./config/.env
+    command:    ./scripts/start-web.sh
+    tty:        true
+    stdin_open: true
+    depends_on:
+      - bundle
+      - postgres
+      - redis
+      - sidekiq
+      - cable
+      - webpack
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/noisu
+    volumes_from:
+      - bundle
+
+  bundle:
+    image: busybox:1
+    volumes:
+      - /bundle
+
   postgres:
     image:    postgres:11-alpine
     env_file: ./config/.env
@@ -70,29 +97,3 @@ services:
       - .:/noisu:cached
     volumes_from:
       - bundle
-
-  web:
-    build:
-      context:    .
-      dockerfile: dockerfiles/web.dockerfile
-    env_file:   ./config/.env
-    command:    ./scripts/start-web.sh
-    tty:        true
-    stdin_open: true
-    depends_on:
-      - postgres
-      - redis
-      - sidekiq
-      - cable
-      - webpack
-    ports:
-      - 3000:3000
-    volumes:
-      - .:/noisu
-    volumes_from:
-      - bundle
-
-  bundle:
-    image: busybox:1
-    volumes:
-      - /bundle

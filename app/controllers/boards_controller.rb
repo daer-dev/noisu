@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BoardsController < ApplicationController
   before_action :set_new_note
 

@@ -1,0 +1,64 @@
+quiet:             true  # Whether to hide hook output by default. This results in completely silent hook runs except in the case of warnings or failures.
+verify_signatures: false
+
+PreCommit:
+
+  # DISABLED HOOKS:
+  AuthorName:
+    enabled: false
+  AuthorEmail:
+    enabled: false
+  TextWidth:
+    enabled: false
+  TrailingPeriod:
+    enabled: false
+
+  ALL:
+    required:                   true                                # This hook cannot be skipped via the SKIP environment variable.
+    problem_on_unmodified_line: warn
+
+  RuboCop:
+    enabled:                    true
+    description:                Analyze the code with RuboCop.
+    on_warn:                    fail                            # Blocks the commit in case of warning.
+    command:                    [ 'bundle', 'exec', 'rubocop' ] # Invoke within Bundler context.
+    flags:
+      - --display-cop-names
+      - --auto-correct
+      - --auto-gen-config
+
+  BundleAudit:
+    enabled:                    true
+    description:                Checks for vulnerable versions of gems in "Gemfile.lock".
+    flags:                      [ '--update' ]
+
+  BundleCheck:
+    enabled:                    true
+    description:                Checks if the local "Gemfile.lock" matches "Gemfile" when either changes.
+
+  Fasterer:
+    enabled:                    true
+    description:                Suggests some speed improvements which you can check in detail at the fast-ruby repo (https://github.com/JuanitoFatas/fast-ruby).
+    exclude:
+      - vendor/**/*.rb
+      - db/schema.rb
+
+  CapitalizedSubject:
+    enabled:                    true
+    description:                Ensures commit message subject lines start with a capital letter.
+
+  EmptyMessage:
+    enabled:                    true
+    description:                Checks that the commit message is not empty.
+
+  BrokenSymlinks:
+    enabled:                    true
+    description:                Checks for broken symlinks.
+
+  CaseConflicts:
+    enabled:                    true
+    description:                Checks for files that would conflict in case-insensitive filesystems.
+
+  MergeConflicts:
+    enabled:                    true
+    description:                Checks for unresolved merge conflicts.

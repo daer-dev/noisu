@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # As the code isn't expected to change in the test env, it's better to cache it.
   config.cache_classes = true
@@ -9,7 +11,7 @@ Rails.application.configure do
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true
   config.public_file_server.headers = {
-    'Cache-Control' => 'public, max-age=3600'
+    "Cache-Control" => "public, max-age=3600"
   }
 
   # Show full error reports and disable caching.

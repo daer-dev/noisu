@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Concerns
   module SluggedName
     extend ActiveSupport::Concern
@@ -6,7 +8,7 @@ module Concerns
       extend FriendlyId
 
       # We set our reserved words like this to avoid overwriting/repeating the Rails default ones.
-      friendly_id_config.reserved_words.concat((ENV['FRIENDLY_ID_RESERVED_WORDS'] || []).split(','))
+      friendly_id_config.reserved_words.concat((ENV["FRIENDLY_ID_RESERVED_WORDS"] || []).split(","))
 
       friendly_id :slug_candidates, use: :slugged
 

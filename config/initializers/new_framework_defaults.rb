@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file contains migration options to ease your Rails 5.0 upgrade.
 #
 # Read the Rails 5.0 release notes for more info on each option.

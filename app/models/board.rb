@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class Board < ApplicationRecord
   include Concerns::SluggedName
 
-  self.table_name = 'noisu.boards'
+  self.table_name = "noisu.boards"
 
   before_save :set_slug
 

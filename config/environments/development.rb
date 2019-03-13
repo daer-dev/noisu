@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
-  # Disables a lot of unnecessary checkups on Yarn.
+  #  Disables a lot of unnecessary checkups on Yarn.
   config.webpacker.check_yarn_integrity = false
 
   # In the development environment your application's code is reloaded on every request, so no restart is necessary between changes.
@@ -12,11 +14,11 @@ Rails.application.configure do
   config.consider_all_requests_local = true
 
   # Enable/disable caching. By default caching is disabled.
-  if Rails.root.join('tmp/caching-dev.txt').exist?
+  if Rails.root.join("tmp/caching-dev.txt").exist?
     config.action_controller.perform_caching = true
 
     config.public_file_server.headers = {
-      'Cache-Control' => 'public, max-age=172800'
+      "Cache-Control" => "public, max-age=172800"
     }
   else
     config.action_controller.perform_caching = false

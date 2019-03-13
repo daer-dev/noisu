@@ -1,16 +1,32 @@
-AllCops:
-  TargetRubyVersion: 2.0
-  Exclude:
-    - 'db/**/*'
-    - 'log/**/*'
-    - 'tmp/**/*'
+inherit_gem:
+  rubocop-rails_config:
+    - config/rails.yml
+inherit_from: .rubocop_todo.yml # Writes a file with the offenses detected and exclude the affected files from future executions.
 
-Documentation:
-  # Checks if the top level modules / classes have a comment.
+# DISABLED COPS.
+Documentation: # Checks if the top level modules / classes have a comment.
+  Enabled: false
+OrderedGems:   # Checks if the gems are ordered alfabetically.
   Enabled: false
 
-# Checks style of children classes and modules.
+AllCops:
+  TargetRubyVersion: 2.5
+  DisabledByDefault: true
+  Exclude:
+    - db/**/*
+    - log/**/*
+    - tmp/**/*
+
 Style/ClassAndModuleChildren:
   Enabled: true
   SupportedStyles:
     - nested
+
+Metrics/LineLength:
+  Enabled:         true
+  Max:             150
+  IgnoredPatterns: [ '(\A|\s)#' ] # Ignores comments.
+
+Metrics/MethodLength:
+  Enabled: true
+  Max:     50

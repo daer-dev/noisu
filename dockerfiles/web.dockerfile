@@ -4,8 +4,14 @@ ARG precompile_assets
 
 MAINTAINER Daniel Herrero <daniel.herrero.101@gmail.com>
 
+# Dependencies:
+#   - Git: Overcommit gem.
+#   - Libxml & Libxslt: Nokogiri gem.
+#   - Yarn & NoseJS: Webpack.
+#   - Tzdata: Rails.
 RUN apk add --update --no-cache \
       build-base \
+      git \
       libxml2-dev \
       libxslt-dev \
       tzdata \
@@ -28,9 +34,12 @@ RUN bundle install --binstubs
 
 COPY . .
 
-VOLUME ["$INSTALL_PATH/public"]
+RUN overcommit --install
+RUN overcommit --sign
 
-CMD chmod 777 scripts/*.sh bin/webpack-dev-server
+RUN chmod 777 scripts/*.sh bin/webpack-dev-server
+
+VOLUME ["$INSTALL_PATH/public"]
 
 CMD scripts/potential-assets-precompile.sh $precompile_assets
 
