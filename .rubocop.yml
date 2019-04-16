@@ -1,7 +1,7 @@
 inherit_gem:
   rubocop-rails_config:
     - config/rails.yml
-inherit_from: .rubocop_todo.yml # Writes a file with the offenses detected and exclude the affected files from future executions.
+inherit_from: .rubocop_todo.yml # Writes a file with the offenses detected and excludes the affected files from future executions.
 
 # DISABLED COPS.
 Documentation: # Checks if the top level modules / classes have a comment.
@@ -16,6 +16,9 @@ AllCops:
     - db/**/*
     - log/**/*
     - tmp/**/*
+    - docker/**/*
+    - node_modules/**/*
+    - bin/**/*
 
 Style/ClassAndModuleChildren:
   Enabled: true

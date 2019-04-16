@@ -14,23 +14,27 @@ PreCommit:
     enabled: false
 
   ALL:
-    required:                   true                                # This hook cannot be skipped via the SKIP environment variable.
+    required:                   true                           # No hook can be skipped via the SKIP environment variable.
     problem_on_unmodified_line: warn
 
   RuboCop:
     enabled:                    true
     description:                Analyze the code with RuboCop.
-    on_warn:                    fail                            # Blocks the commit in case of warning.
-    command:                    [ 'bundle', 'exec', 'rubocop' ] # Invoke within Bundler context.
+    on_warn:                    fail                           # Blocks the commit in case of warning.
+    required_executable:        bundle exec rubocop
     flags:
       - --display-cop-names
       - --auto-correct
       - --auto-gen-config
 
+  # FIXME: Temporarily disabled as it throws the following error when executing it:
+  #          "is not installed, not in your PATH, or does not have execute permissions".
   BundleAudit:
-    enabled:                    true
+    enabled:                    false
     description:                Checks for vulnerable versions of gems in "Gemfile.lock".
-    flags:                      [ '--update' ]
+    required_executable:        bundle exec bundler-audit check
+    flags:
+      - --update
 
   BundleCheck:
     enabled:                    true

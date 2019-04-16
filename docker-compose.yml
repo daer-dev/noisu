@@ -10,9 +10,9 @@ services:
   web:
     build:
       context:    .
-      dockerfile: dockerfiles/web.dockerfile
+      dockerfile: ./docker/web.dockerfile
     env_file:   ./config/.env
-    command:    ./scripts/start-web.sh
+    command:    ./docker/scripts/start-web.sh
     tty:        true
     stdin_open: true
     depends_on:
@@ -26,6 +26,11 @@ services:
       - 3000:3000
     volumes:
       - .:/noisu
+      # SSH files to communicate with the outer world within the web container.
+      - ~/.ssh/id_rsa:/root/.ssh/id_rsa
+      - ~/.ssh/id_rsa.pub:/root/.ssh/id_rsa.pub
+      - ~/.ssh/known_hosts:/root/.ssh/known_hosts
+      - ~/.ssh/authorized_keys:/root/.ssh/authorized_keys
     volumes_from:
       - bundle
 
@@ -46,9 +51,9 @@ services:
   redis:
     build:
       context:    .
-      dockerfile: dockerfiles/redis.dockerfile
+      dockerfile: ./docker/redis.dockerfile
     env_file: ./config/.env
-    command:  ./scripts/start-redis.sh
+    command:  ./docker/scripts/start-redis.sh
     ports:
       - 6379:6379
     volumes:
@@ -57,9 +62,9 @@ services:
   sidekiq:
     build:
       context:    .
-      dockerfile: dockerfiles/web.dockerfile
+      dockerfile: ./docker/web.dockerfile
     env_file: ./config/.env
-    command:  ./scripts/start-sidekiq.sh
+    command:  ./docker/scripts/start-sidekiq.sh
     depends_on:
       - postgres
       - redis
@@ -71,9 +76,9 @@ services:
   cable:
     build:
       context:    .
-      dockerfile: dockerfiles/web.dockerfile
+      dockerfile: ./docker/web.dockerfile
     env_file: ./config/.env
-    command:  ./scripts/start-cable.sh
+    command:  ./docker/scripts/start-cable.sh
     depends_on:
       - redis
     ports:
@@ -86,11 +91,11 @@ services:
   webpack:
     build:
       context: .
-      dockerfile: dockerfiles/web.dockerfile
+      dockerfile: ./docker/web.dockerfile
       args:
         precompile_assets: 'not'
     env_file: ./config/.env
-    command:  ./scripts/start-webpack-dev.sh
+    command:  ./docker/scripts/start-webpack-dev.sh
     ports:
       - 3035:3035
     volumes:

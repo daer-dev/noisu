@@ -1,0 +1,50 @@
+FROM ruby:2.6.1-alpine
+
+ARG precompile_assets
+
+MAINTAINER Daniel Herrero <daniel.herrero.101@gmail.com>
+
+# Installs all the system's dependencies:
+#   - Git, SSH & Vim: Git's use, needed inside the container due to Overcommit. Less for colored diffs.
+#   - Libxml & Libxslt: Nokogiri gem.
+#   - Yarn & NodeJS: Webpack.
+#   - Tzdata: Rails.
+RUN apk add --update --no-cache \
+      build-base \
+      git \
+      less \
+      openssh \
+      vim \
+      libxml2-dev \
+      libxslt-dev \
+      tzdata \
+      bash \
+      yarn \
+      nodejs \
+      postgresql-dev \
+    && rm -rf /var/cache/apk/*
+
+# Aliases and Git config to be run in the container startup.
+COPY docker/scripts/aliases.sh /etc/profile.d/aliases.sh
+COPY docker/scripts/config-git.sh /etc/profile.d/config-git.sh
+
+# Creates the project's main path and sets it as the current directory.
+ENV     INSTALL_PATH /noisu
+RUN     mkdir -p $INSTALL_PATH
+WORKDIR $INSTALL_PATH
+
+# Updates the gem system to avoid incompatibilities with the defined Ruby version and installs all the gems.
+COPY Gemfile Gemfile.lock ./
+RUN  gem update --system && gem install bundler
+RUN  bundle install --binstubs
+
+COPY . .
+
+RUN chmod 777 docker/scripts/*.sh bin/webpack-dev-server
+
+VOLUME ["$INSTALL_PATH/public"]
+
+# It precompiles the assets only if neccessary, and it'll be only in the run phase.
+CMD docker/scripts/potential-assets-precompile.sh $precompile_assets
+
+CMD puma -C config/puma.rb
