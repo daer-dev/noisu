@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateSchemaNoisu < ActiveRecord::Migration[5.0]
+class CreateSchemaNoisu < ActiveRecord::Migration[6.0]
   def up
     execute "CREATE SCHEMA noisu"
   end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateBoardsStats < ActiveRecord::Migration[5.0]
+class CreateBoardsStats < ActiveRecord::Migration[6.0]
   def change
     create_table "noisu.boards_stats" do |t|
       t.references :board,      null: false

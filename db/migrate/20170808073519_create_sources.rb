@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateSources < ActiveRecord::Migration[5.0]
+class CreateSources < ActiveRecord::Migration[6.0]
   def change
     create_table "noisu.sources" do |t|
       t.string   :name,         null: false

@@ -1,50 +1,48 @@
 # frozen_string_literal: true
 
-Rails.application.configure do
-  #  Disables a lot of unnecessary checkups on Yarn.
-  config.webpacker.check_yarn_integrity = false
+# Disables a lot of unnecessary checkups on Yarn.
+Rails.application.config.webpacker.check_yarn_integrity = false
 
-  # In the development environment your application's code is reloaded on every request, so no restart is necessary between changes.
-  config.cache_classes = false
+# In the development environment your application's code is reloaded on every request, so no restart is necessary between changes.
+Rails.application.config.cache_classes = false
 
-  # Do not eager load code on boot.
-  config.eager_load = false
+# Do not eager load code on boot.
+Rails.application.config.eager_load = false
 
-  # Show full error reports.
-  config.consider_all_requests_local = true
+# Show full error reports.
+Rails.application.config.consider_all_requests_local = true
 
-  # Enable/disable caching. By default caching is disabled.
-  if Rails.root.join("tmp/caching-dev.txt").exist?
-    config.action_controller.perform_caching = true
+# Enable/disable caching. By default caching is disabled.
+if Rails.root.join("tmp/caching-dev.txt").exist?
+  Rails.application.config.action_controller.perform_caching = true
 
-    config.public_file_server.headers = {
-      "Cache-Control" => "public, max-age=172800"
-    }
-  else
-    config.action_controller.perform_caching = false
-  end
-
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
-
-  config.action_mailer.perform_caching = false
-
-  # Print deprecation notices to the Rails logger.
-  config.active_support.deprecation = :log
-
-  # Raise an error on page load if there are pending migrations.
-  config.active_record.migration_error = :page_load
-
-  # Debug mode disables concatenation and preprocessing of assets.
-  # This option may cause significant delays in view rendering with a large number of complex assets.
-  config.assets.debug = true
-
-  # Suppress logger output for asset requests.
-  config.assets.quiet = true
-
-  # Raises error for missing translations.
-  config.action_view.raise_on_missing_translations = true
-
-  # Use an evented file watcher to asynchronously detect changes in source code, routes, locales, etc. This feature depends on the "listen" gem.
-  config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  Rails.application.config.public_file_server.headers = {
+    "Cache-Control" => "public, max-age=172800"
+  }
+else
+  Rails.application.config.action_controller.perform_caching = false
 end
+
+# Don't care if the mailer can't send.
+Rails.application.config.action_mailer.raise_delivery_errors = false
+
+Rails.application.config.action_mailer.perform_caching = false
+
+# Print deprecation notices to the Rails logger.
+Rails.application.config.active_support.deprecation = :log
+
+# Raise an error on page load if there are pending migrations.
+Rails.application.config.active_record.migration_error = :page_load
+
+# Debug mode disables concatenation and preprocessing of assets.
+# This option may cause significant delays in view rendering with a large number of complex assets.
+Rails.application.config.assets.debug = true
+
+# Suppress logger output for asset requests.
+Rails.application.config.assets.quiet = true
+
+# Raises error for missing translations.
+Rails.application.config.action_view.raise_on_missing_translations = true
+
+# Use an evented file watcher to asynchronously detect changes in source code, routes, locales, etc. This feature depends on the "listen" gem.
+Rails.application.config.file_watcher = ActiveSupport::EventedFileUpdateChecker

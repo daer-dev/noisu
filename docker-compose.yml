@@ -1,7 +1,8 @@
-version: '2'
+version: '3'
 
 volumes:
 
+  bundle_cache:
   redis:
   postgres:
 
@@ -16,7 +17,6 @@ services:
     tty:        true
     stdin_open: true
     depends_on:
-      - bundle
       - postgres
       - redis
       - sidekiq
@@ -25,19 +25,13 @@ services:
     ports:
       - 3000:3000
     volumes:
+      - bundle_cache:/bundle
       - .:/noisu
       # SSH files to communicate with the outer world within the web container.
       - ~/.ssh/id_rsa:/root/.ssh/id_rsa
       - ~/.ssh/id_rsa.pub:/root/.ssh/id_rsa.pub
       - ~/.ssh/known_hosts:/root/.ssh/known_hosts
       - ~/.ssh/authorized_keys:/root/.ssh/authorized_keys
-    volumes_from:
-      - bundle
-
-  bundle:
-    image: busybox:1
-    volumes:
-      - /bundle
 
   postgres:
     image:    postgres:11-alpine
@@ -69,9 +63,8 @@ services:
       - postgres
       - redis
     volumes:
+      - bundle_cache:/bundle
       - .:/noisu
-    volumes_from:
-      - bundle
 
   cable:
     build:
@@ -84,9 +77,8 @@ services:
     ports:
       - 28080:28080
     volumes:
+      - bundle_cache:/bundle
       - .:/noisu
-    volumes_from:
-      - bundle
 
   webpack:
     build:
@@ -99,6 +91,5 @@ services:
     ports:
       - 3035:3035
     volumes:
+      - bundle_cache:/bundle
       - .:/noisu:cached
-    volumes_from:
-      - bundle

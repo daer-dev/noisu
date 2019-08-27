@@ -22,11 +22,10 @@ Command cheat-sheet to make the dev life less painful:
 docker-compose up                                               # Builds and runs the entire environment. Run with "--force-recreate" or "--build" if needed.
 docker-compose exec container_name bash -l                      # To enter to the CLI of a container.
 noisu bundle install --binstubs                                 # Installs new gems with their executable file in /bin.
-./docker/scripts/reset-docker.sh                                # Deletes all Docker's volumes and containers. Run with "--destroy-images" to delete them too.
+docker system prune -af --volumes                               # Deletes all Docker's containers, networks, volumes, images and cache.
 docker ps -a                                                    # Lists all the containers.
 docker images                                                   # Lists all the images.
 docker volume ls                                                # Lists all the volumes.
-./scripts/reset-docker.sh                                       # Deletes all Docker's volumes and containers. Run with "--destroy-images" to delete them too.
 ```
 
 ### Heroku

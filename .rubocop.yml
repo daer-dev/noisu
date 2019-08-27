@@ -8,6 +8,10 @@ Documentation: # Checks if the top level modules / classes have a comment.
   Enabled: false
 OrderedGems:   # Checks if the gems are ordered alfabetically.
   Enabled: false
+EmptyLinesAroundAccessModifier: # Removes blank lines around access modifiers (private/protected).
+  Enabled: false
+StringLiterals: # Prefers double-quoted strings unless you need single quotes to avoid extra backslashes for escaping.
+  Enabled: false
 
 AllCops:
   TargetRubyVersion: 2.5

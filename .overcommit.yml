@@ -21,7 +21,7 @@ PreCommit:
     enabled:                    true
     description:                Analyze the code with RuboCop.
     on_warn:                    fail                           # Blocks the commit in case of warning.
-    required_executable:        bundle exec rubocop
+    required_executable:        rubocop
     flags:
       - --display-cop-names
       - --auto-correct

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateFriendlyIdSlugs < ActiveRecord::Migration[5.0]
+class CreateFriendlyIdSlugs < ActiveRecord::Migration[6.0]
   def change
     create_table "noisu.friendly_id_slugs" do |t|
       t.string   :slug,           null:  false

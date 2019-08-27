@@ -1,3 +1,5 @@
 alias gitac="git add -A && git commit"
 alias gitppm="git pull origin master"
 alias gitpm="git push origin master"
+alias fasterer="/noisu/bin/fasterer"
+alias rubocop="/noisu/bin/rubocop"

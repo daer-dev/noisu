@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Board < ApplicationRecord
-  include Concerns::SluggedName
+  include SluggedName
 
   self.table_name = "noisu.boards"
 
