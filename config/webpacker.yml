@@ -17,7 +17,7 @@ development:
     port:               3035
     public:             webpack:3035
     hmr:                true
-    inline:             true # Inline should be set to true if using HMR.
+    inline:             true         # Inline should be set to true if using HMR.
     overlay:            true
     compress:           true
     disable_host_check: true

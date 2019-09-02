@@ -1,1 +1,3 @@
-%div.board{'data-room-id' => room_id}
+= render 'boards/board/layout', broadcast: board.broadcast do
+  = render 'boards/board/notes', notes: board.notes
+  = render 'boards/board/notes', notes: board.sources_notes

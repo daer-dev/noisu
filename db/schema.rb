@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_09_235906) do
+ActiveRecord::Schema.define(version: 2019_08_31_150537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(version: 2018_10_09_235906) do
     t.string "sources_notes_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer "user_id"
+    t.boolean "public_board", default: true, null: false
     t.index ["slug"], name: "index_noisu.boards_on_slug"
   end
 
@@ -59,10 +61,11 @@ ActiveRecord::Schema.define(version: 2018_10_09_235906) do
   end
 
   create_table "notes", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.text "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer "board_id"
     t.index ["user_id"], name: "index_noisu.notes_on_user_id"
   end
 
@@ -76,14 +79,12 @@ ActiveRecord::Schema.define(version: 2018_10_09_235906) do
   create_table "sources_notes", force: :cascade do |t|
     t.bigint "board_id", null: false
     t.bigint "source_id", null: false
-    t.bigint "user_id", null: false
     t.text "content", null: false
     t.string "url"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["board_id"], name: "index_noisu.sources_notes_on_board_id"
     t.index ["source_id"], name: "index_noisu.sources_notes_on_source_id"
-    t.index ["user_id"], name: "index_noisu.sources_notes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

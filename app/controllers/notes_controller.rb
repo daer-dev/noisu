@@ -2,21 +2,27 @@
 
 class NotesController < ApplicationController
   def index
-    @notes = Note.where(board_id: params[:board_id]).all
+    @notes = Note.where(board_slug: params[:board_slug]).all
   end
 
   def new
+    @note = Note.new
   end
 
   def create
-    @note = Note.new(allowed_params)
+    create_service = Notes::CreateService.new(
+      record_attrs: allowed_params,
+      board_slug:   params[:board_slug]
+    )
 
-    if @note.save
-      BoardsChannel.broadcast_to(broadcast_rooms,
-        text: params[:note][:text]
-      )
+    if create_service.run
+      flash[:success] = create_service.message
     else
-      redirect_to boards_path(params[:board_id])
+      flash[:error] = create_service.message
+
+      @note = create_service.record
+
+      redirect_to boards_path(params[:board_slug])
     end
   end
 
@@ -24,7 +30,7 @@ class NotesController < ApplicationController
 
     def allowed_params
       params.require(:note).permit(
-        :text
+        :content
       )
     end
 end

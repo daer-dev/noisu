@@ -1,16 +1,7 @@
+= form_with model: @note, url: board_notes_path(params[:slug]) do |f|
+  %p
+    = f.label :content
+    = f.text_area :content
 
-<%= form_with scope: :note, local: true do |f|
-  <p>
-    <%= form.label :title %><br>
-    <%= form.text_field :title %>
-  </p>
-
-  <p>
-    <%= form.label :text %><br>
-    <%= form.text_area :text %>
-  </p>
-
-  <p>
-    <%= form.submit %>
-  </p>
-<% end %>
+  %p
+    = f.submit t('notes.form.submit')

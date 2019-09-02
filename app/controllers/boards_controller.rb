@@ -8,7 +8,7 @@ class BoardsController < ApplicationController
   end
 
   def show
-    @board = Board.friendly.find(params[:id])
+    @board = Board.friendly.find(params[:slug])
   end
 
   private

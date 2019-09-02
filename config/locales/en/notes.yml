@@ -1,0 +1,21 @@
+en:
+
+  activerecord:
+
+    models:
+      note: "Note"
+
+    attributes:
+      note:
+        user_id: "User"
+        content: "Text"
+
+  notes:
+
+    form:
+      submit: "Send"
+
+    create:
+      messages:
+        success: "Note succesfully created!"
+        error:   "Error creating note."

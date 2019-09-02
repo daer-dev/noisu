@@ -14,16 +14,16 @@ if @boards
 
       appendLine(data) {
         var html = this.createLine(data);
-        $('[data-room-id="<%= board.id %>]').append(html);
+        $('[data-broadcast~="<%= board.id %>"]').append(html);
       },
 
       createLine(data) {
         <%
         replace_vars = {
-          text: '##note.text##'
+          content: '##note.content##'
         }
         %>
-        var html = '<%= escape_javascript render 'notes/note', text: replace_vars %>';
+        var html = '<%= escape_javascript render 'notes/note', content: replace_vars %>';
 
         <% replace_vars.each do |field, replace_var|
           html.replace(<%= field %>, data['<%= replace_var %>']);
