@@ -20,8 +20,9 @@ Command cheat-sheet to make the dev life less painful:
 
 ```bash
 docker-compose up                                               # Builds and runs the entire environment. Run with "--force-recreate" or "--build" if needed.
-docker-compose exec container_name bash -l                      # To enter to the CLI of a container.
-noisu bundle install --binstubs                                 # Installs new gems with their executable file in /bin.
+docker-compose exec [CONTAINER_NAME] bash -l                    # To enter to the CLI of a container.
+noisu bundle install                                            # Installs new gems.
+noisu bundle binstubs [GEM_NAME]                                # Generates a local executable for the specified gem.
 docker system prune -af --volumes                               # Deletes all Docker's containers, networks, volumes, images and cache.
 docker ps -a                                                    # Lists all the containers.
 docker images                                                   # Lists all the images.

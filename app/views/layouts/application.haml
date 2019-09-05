@@ -1,16 +1,18 @@
 !!!
 %html
   %head
-    %meta{content: 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type'}
+    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
     %title
-      = t('layout.title')
-    %meta{charset: 'utf-8'}
-    %meta{content: 'IE=edge,chrome=1', 'http-equiv' => 'X-UA-Compatible'}
-    %meta{content: 'width=device-width, initial-scale=1.0', name: 'viewport'}
-    %meta{content: t('layout.meta_description'), name: 'description'}
+      = t("layout.title")
+    %meta{charset: "utf-8"}
+    %meta{content: "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}
+    %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}
+    %meta{content: t("layout.meta_description"), name: "description"}
     = action_cable_meta_tag
-    = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    = stylesheet_pack_tag "application", media: "all", "data-turbolinks-track": "reload"
+    = javascript_pack_tag "application", "data-turbolinks-track": "reload"
     = csrf_meta_tags
   %body
+    = render "notes/dummy_note"
+    = render "shared/header"
     = yield

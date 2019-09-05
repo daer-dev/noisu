@@ -12,6 +12,8 @@ services:
     build:
       context:    .
       dockerfile: ./docker/web.dockerfile
+      args:
+        precompile_assets: 'not'
     env_file:   ./config/.env
     command:    ./docker/scripts/start-web.sh
     tty:        true
@@ -26,7 +28,7 @@ services:
       - 3000:3000
     volumes:
       - bundle_cache:/bundle
-      - .:/noisu
+      - .:/noisu:consistent
       # SSH files to communicate with the outer world within the web container.
       - ~/.ssh/id_rsa:/root/.ssh/id_rsa
       - ~/.ssh/id_rsa.pub:/root/.ssh/id_rsa.pub
@@ -64,7 +66,7 @@ services:
       - redis
     volumes:
       - bundle_cache:/bundle
-      - .:/noisu
+      - .:/noisu:consistent
 
   cable:
     build:
@@ -78,14 +80,12 @@ services:
       - 28080:28080
     volumes:
       - bundle_cache:/bundle
-      - .:/noisu
+      - .:/noisu:cached
 
   webpack:
     build:
       context: .
       dockerfile: ./docker/web.dockerfile
-      args:
-        precompile_assets: 'not'
     env_file: ./config/.env
     command:  ./docker/scripts/start-webpack-dev.sh
     ports:

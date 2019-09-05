@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-#  Disables a lot of unnecessary checkups on Yarn.
-Rails.application.config.webpacker.check_yarn_integrity = false
-
 # Code is not reloaded between requests.
 Rails.application.config.cache_classes = true
 

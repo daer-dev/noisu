@@ -38,13 +38,11 @@ WORKDIR $INSTALL_PATH
 # Updates the gem system to avoid incompatibilities with the defined Ruby version and installs all the gems.
 COPY Gemfile Gemfile.lock ./
 RUN  gem update --system && gem install bundler
-RUN  bundle install --binstubs
+RUN  bundle install
 
 COPY . .
 
 RUN chmod 777 docker/scripts/*.sh bin/webpack-dev-server
-
-VOLUME ["$INSTALL_PATH/public"]
 
 # It precompiles the assets only if neccessary, and it'll be only in the run phase.
 CMD docker/scripts/potential-assets-precompile.sh $precompile_assets

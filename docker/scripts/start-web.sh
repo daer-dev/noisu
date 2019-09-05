@@ -4,7 +4,7 @@ if [ -f tmp/pids/server.pid ]; then
  rm -f -f tmp/pids/server.pid
 fi
 
-bundle check || bundle install --binstubs
+bundle check || bundle install
 
 rake db:create
 rake db:migrate

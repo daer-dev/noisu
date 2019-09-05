@@ -1,21 +1,52 @@
-# NOTE: You must restart bin/webpack-dev-server for changes to take effect.
-
 default: &default
-  source_path:        app/webpacker
-  source_entry_path:  packs
-  cache_path:         tmp/cache/webpacker
-  resolved_paths:     []
+  source_path:              app/webpacker
+  source_entry_path:        packs
+  public_root_path:         public
+  cache_path:               tmp/cache/webpacker
+  resolved_paths:           []
+  webpack_compile_output:   false
+  extract_css:              false
+  check_yarn_integrity:     false
+  static_assets_extensions:
+    - .jpg
+    - .jpeg
+    - .png
+    - .gif
+    - .tiff
+    - .ico
+    - .svg
+    - .eot
+    - .otf
+    - .ttf
+    - .woff
+    - .woff2
+  extensions:
+    - .erb
+    - .js.erb
+    - .mjs
+    - .js
+    - .sass
+    - .scss
+    - .css
+    - .module.sass
+    - .module.scss
+    - .module.css
+    - .png
+    - .svg
+    - .gif
+    - .jpeg
+    - .jpg
 
 development:
   <<: *default
-  compile:            true
   public_output_path: packs-development
+  compile:            true
   cache_manifest:     false
   dev_server:
     https:              false
-    host:               webpack
+    host:               0.0.0.0
     port:               3035
-    public:             webpack:3035
+    public:             0.0.0.0:3035
     hmr:                true
     inline:             true         # Inline should be set to true if using HMR.
     overlay:            true
@@ -26,22 +57,22 @@ development:
     headers:
       'Access-Control-Allow-Origin': '*'
     watch_options:
-      ignored: /node_modules/
+      ignored: '**/node_modules/**'
 
 test:
   <<: *default
-  compile:            true
   public_output_path: packs-test
+  compile:            true
   cache_manifest:     false
 
 staging:
   <<: *default
+  public_output_path: packs-staging
   compile:            false
   cache_manifest:     true
-  public_output_path: packs-staging
 
 production:
   <<: *default
+  public_output_path: packs-production
   compile:            false
   cache_manifest:     true
-  public_output_path: packs-production
