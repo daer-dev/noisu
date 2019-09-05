@@ -66,7 +66,7 @@ services:
       - redis
     volumes:
       - bundle_cache:/bundle
-      - .:/noisu:consistent
+      - .:/noisu:cached
 
   cable:
     build:
