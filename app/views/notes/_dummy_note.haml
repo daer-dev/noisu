@@ -4,5 +4,5 @@
 - # It'll replace this content with the real one before returning it.
 - replace_vars = { content: "##note.content##" }
 
-#dummy_note.hidden{"data-dummy-note-data": replace_vars.to_json}
+#dummy_note{"data-dummy-note-data": replace_vars.to_json}
   = render "notes/note", replace_vars

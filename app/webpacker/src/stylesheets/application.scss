@@ -1,9 +1,11 @@
+// Libraries
 @import '~bootstrap/scss/bootstrap';
-
 $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '~@fortawesome/fontawesome-free/scss/solid';
 
-@import '../src/stylesheets/shared/_variables';
-@import '../src/stylesheets/shared/_fonts';
-@import '../src/stylesheets/common';
+// App
+@import 'shared/_variables';
+@import 'shared/_fonts';
+@import '_base';
+@import '_notes';

@@ -1,16 +1,9 @@
+// Assets
+require.context('../src/fonts', true, /\.(svg|eot|ttf|woff|woff2)$/i);
+require.context('../src/images', true, /\.(gif|jpg|jpeg|png)$/i);
 
-// Rails essentials
-import Rails from "rails-ujs"; Rails.start()
-import Turbolinks from "turbolinks"; Turbolinks.start()
-import "channels"
+// Javacript
+import "../src/javascripts/_base"
 
-// ES6 polyfills
-import "core-js/stable"
-import "regenerator-runtime/runtime"
-
-// Libraries
-//   NOTE: jQuery is already loaded via "config/webpack/environment.js". Otherwise, any pack depending on it would have to import it explicitly.
-import "bootstrap/dist/js/bootstrap"
-
-// App
-import "../src/javascripts/common"
+// CSS
+import "../src/stylesheets/application"
