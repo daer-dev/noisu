@@ -1,6 +1,6 @@
 development: &default
   adapter: redis
-  url:     <%= ENV['ACTION_CABLE_BACKEND_URL'] %>
+  url:     "<%= "redis://:#{ENV["REDIS_PASSWORD"]}@#{ENV["REDIS_HOST"]}:#{ENV["REDIS_PORT"]}/#{ENV["REDIS_NAMESPACE"]}" %>"
 
 test:
   <<: *default

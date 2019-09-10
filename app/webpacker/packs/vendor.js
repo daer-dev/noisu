@@ -1,7 +1,6 @@
 // Rails essentials
 import Rails from "rails-ujs"; Rails.start()
 import Turbolinks from "turbolinks"; Turbolinks.start()
-import "channels"
 
 // ES6 polyfills
 import "core-js/stable"

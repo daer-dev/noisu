@@ -7,7 +7,7 @@
 .byebug_history
 /vendor/bundle
 /public/assets/*
-/config/.env
+/.env
 /public/packs
 /public/packs-development
 /public/packs-test

@@ -2,4 +2,4 @@
 
 bundle check || bundle install
 
-puma -p 28080 cable/config.ru
+puma -p $ACTION_CABLE_PORT cable/config.ru

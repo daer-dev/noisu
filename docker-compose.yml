@@ -14,7 +14,7 @@ services:
       dockerfile: ./docker/web.dockerfile
       args:
         precompile_assets: 'not'
-    env_file:   ./config/.env
+    env_file:   ./.env
     command:    ./docker/scripts/start-web.sh
     tty:        true
     stdin_open: true
@@ -25,7 +25,7 @@ services:
       - cable
       - webpack
     ports:
-      - 3000:3000
+      - ${BIND_ON_PORT?}:${BIND_ON_PORT?}
     volumes:
       - bundle_cache:/bundle
       - .:/noisu
@@ -37,10 +37,10 @@ services:
 
   postgres:
     image:    postgres:11-alpine
-    env_file: ./config/.env
+    env_file: ./.env
     restart:  always
     ports:
-      - 5432:5432
+      - ${POSTGRES_PORT?}:${POSTGRES_PORT?}
     volumes:
       - postgres:/var/lib/postgresql/data
 
@@ -48,10 +48,10 @@ services:
     build:
       context:    .
       dockerfile: ./docker/redis.dockerfile
-    env_file: ./config/.env
+    env_file: ./.env
     command:  ./docker/scripts/start-redis.sh
     ports:
-      - 6379:6379
+      - ${REDIS_PORT?}:${REDIS_PORT?}
     volumes:
       - redis:/var/lib/redis/data
 
@@ -59,7 +59,7 @@ services:
     build:
       context:    .
       dockerfile: ./docker/web.dockerfile
-    env_file: ./config/.env
+    env_file: ./.env
     command:  ./docker/scripts/start-sidekiq.sh
     depends_on:
       - postgres
@@ -72,12 +72,12 @@ services:
     build:
       context:    .
       dockerfile: ./docker/web.dockerfile
-    env_file: ./config/.env
+    env_file: ./.env
     command:  ./docker/scripts/start-cable.sh
     depends_on:
       - redis
     ports:
-      - 28080:28080
+      - ${ACTION_CABLE_PORT?}:${ACTION_CABLE_PORT?}
     volumes:
       - bundle_cache:/bundle
       - .:/noisu
@@ -86,10 +86,10 @@ services:
     build:
       context: .
       dockerfile: ./docker/web.dockerfile
-    env_file: ./config/.env
+    env_file: ./.env
     command:  ./docker/scripts/start-webpack-dev.sh
     ports:
-      - 3035:3035
+      - ${WEBPACK_PORT?}:${WEBPACK_PORT?}
     volumes:
       - bundle_cache:/bundle
       - .:/noisu

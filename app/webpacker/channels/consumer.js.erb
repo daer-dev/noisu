@@ -1,0 +1,3 @@
+import { createConsumer } from "@rails/actioncable"
+
+export default createConsumer("<%= ENV["ACTION_CABLE_HOST"] %>:<%= ENV["ACTION_CABLE_PORT"] %>")
