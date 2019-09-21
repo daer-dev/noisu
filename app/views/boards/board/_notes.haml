@@ -1,2 +1,2 @@
 - notes.each do |note|
-  = render 'notes/note', content: note.content
+  = render 'notes/note', note_decorator: Boards::NoteDecorator.new(note)

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class BoardsChannel < ApplicationCable::Channel
+class BoardsNotificationsChannel < ApplicationCable::Channel
   def subscribed
     stream_from params[:broadcast]
   end

@@ -10,17 +10,22 @@ class NotesController < ApplicationController
   end
 
   def create
-    create_service = Notes::CreateService.new(
-      record_attrs: allowed_params,
-      board_slug:   params[:board_slug]
-    )
+    if Boards::NoteCreationJob.perform_later(
+        board_slug: params[:board_slug],
+        note_attrs: allowed_params
+      )
 
-    if create_service.run
-      flash[:success] = create_service.message
+      Boards::NotificationCreationJob.perform_later(
+        board_slug: params[:board_slug],
+        type:       'info',
+        text:       I18n.t('notes.create.messages.pending')
+      )
     else
-      flash[:error] = create_service.message
-
-      @note = create_service.record
+      Boards::NotificationCreationJob.perform_later(
+        board_slug: params[:board_slug],
+        type:       'error',
+        text:       I18n.t('notes.create.messages.error')
+      )
 
       redirect_to boards_path(params[:board_slug])
     end

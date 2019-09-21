@@ -17,5 +17,6 @@ en:
 
     create:
       messages:
+        pending: "Your note will be created shortly!"
         success: "Note succesfully created!"
         error:   "Error creating note."

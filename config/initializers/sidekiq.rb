@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-redis_url    = "redis://:#{ENV["REDIS_PASSWORD"]}@#{ENV["REDIS_HOST"]}:#{ENV["REDIS_PORT"]}/#{ENV["REDIS_NAMESPACE"]}"
-redis_config = { url: redis_url }
+redis_config = {
+  url: "redis://:#{ENV["REDIS_PASSWORD"]}@#{ENV["REDIS_HOST"]}:#{ENV["REDIS_PORT"]}/#{ENV["REDIS_NAMESPACE"]}"
+}
 
 Sidekiq.configure_server do |config|
   config.redis = redis_config

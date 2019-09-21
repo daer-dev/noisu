@@ -98,6 +98,10 @@ GEM
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
     iniparse (1.4.4)
+    interactor (3.1.1)
+    interactor-rails (2.2.1)
+      interactor (~> 3.0)
+      rails (>= 4.2)
     jaro_winkler (1.5.3)
     jbuilder (2.9.1)
       activesupport (>= 4.2.0)
@@ -270,6 +274,8 @@ DEPENDENCIES
   flamegraph
   friendly_id (= 5.2.5)
   haml-rails (= 2.0.1)
+  interactor (= 3.1.1)
+  interactor-rails (= 2.2.1)
   jbuilder (= 2.9.1)
   memory_profiler
   overcommit (= 0.49.1)
