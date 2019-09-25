@@ -5,10 +5,10 @@ module Boards
     queue_as :boards
 
     def perform(board_slug:, note_attrs:)
-      Boards::NoteCreationOrganizer.new(
-        board_slug:   board_slug,
-        record_attrs: note_attrs
-      ).run
+      Boards::CreateNote.call(
+        board_slug: board_slug,
+        note_attrs: note_attrs
+      )
     end
   end
 end

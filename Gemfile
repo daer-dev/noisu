@@ -20,7 +20,6 @@ gem "overcommit",           "0.49.1"
 gem "bundler-audit",        "0.6.1"
 gem "fasterer",             "0.5.0"
 gem "interactor",           "3.1.1"
-gem "interactor-rails",     "2.2.1"
 
 group :development, :test do
   gem "byebug", platform: :mri
