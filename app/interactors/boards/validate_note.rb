@@ -3,16 +3,15 @@
 module Boards
   class ValidateNote
     include Interactor
-    include ActiveModel::Validations
-
-    validates :content, presence: true
-
-    def initialize(note_attrs)
-      @content = note_attrs[:content]
-    end
 
     def call
-      context.fail! unless self.new(context.note_attrs.symbolize).valid?
+      note_validator = Boards::NoteValidator.new(context.note_attrs)
+
+      unless note_validator.valid?
+        context.errors = note_validator.errors
+
+        context.fail!
+      end
     end
   end
 end
