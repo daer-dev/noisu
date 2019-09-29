@@ -17,13 +17,13 @@ class NotesController < ApplicationController
 
       Boards::NotificationCreationJob.perform_later(
         board_slug: params[:board_slug],
-        type:       'info',
+        type:       :info,
         text:       I18n.t('notes.create.messages.pending')
       )
     else
       Boards::NotificationCreationJob.perform_later(
         board_slug: params[:board_slug],
-        type:       'error',
+        type:       :error,
         text:       I18n.t('notes.create.messages.error')
       )
 

@@ -5,7 +5,7 @@ module Boards
     queue_as :boards
 
     def perform(board_slug:, notification_attrs:)
-      Boards::CreateNotification.call(
+      Actions::Boards::CreateNotification.call(
         board_slug:         board_slug,
         notification_attrs: notification_attrs
       )

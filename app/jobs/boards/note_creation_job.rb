@@ -5,7 +5,7 @@ module Boards
     queue_as :boards
 
     def perform(board_slug:, note_attrs:)
-      Boards::CreateNote.call(
+      Actions::Boards::CreateNote.call(
         board_slug: board_slug,
         note_attrs: note_attrs
       )

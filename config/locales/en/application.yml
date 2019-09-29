@@ -3,3 +3,8 @@ en:
   layout:
     title:            Noisu
     meta_description: Colaborative boards, no limits!
+
+  forms:
+    errors:
+      validation:
+        title: "The form you submitted had the following errors:"
