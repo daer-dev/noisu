@@ -1,5 +1,7 @@
-function create_board_subscription(args) {
-  $.each(get_page_boards_broadcasts(), function(i, broadcast) {
+import consumer from './../../../channels/consumer'
+
+export function createBoardSubscription(args) {
+  $.each(getPageBoardsBroadcasts(), function(i, broadcast) {
     consumer.subscriptions.create({
       channel:   args['channel'],
       broadcast: broadcast
@@ -24,7 +26,7 @@ function create_board_subscription(args) {
   });
 }
 
-function get_page_boards_broadcasts() {
+function getPageBoardsBroadcasts() {
   var page_broadcast = [];
 
   // We iterate all present boards and its broadcast values so we can subscribe only to their channels later.

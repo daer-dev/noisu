@@ -1,7 +1,7 @@
-import consumer from './consumer'
+import { createBoardSubscription } from './../src/javascripts/boards/channels'
 
 $(document).ready(function() {
-  create_board_subscription({
+  createBoardSubscription({
     'channel':   'BoardsNotificationsChannel',
     'append_to': '.notifications'
   });

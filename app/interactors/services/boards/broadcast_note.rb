@@ -7,16 +7,20 @@ module Services
 
       def call
         if self.broadcast!
-          Boards::NotificationCreationJob.perform_later(
-            board_slug: context.board_slug,
-            type:       :success,
-            text:       I18n.t('notes.create.messages.success')
+          ::Boards::NotificationCreationJob.perform_later(
+            board_slug:         context.board_slug,
+            notification_attrs: {
+              type: :success,
+              text: I18n.t('notes.create.messages.success')
+            }
           )
         else
-          Boards::NotificationCreationJob.perform_later(
-            board_slug: context.board_slug,
-            type:       :error,
-            text:       I18n.t('notes.create.messages.error')
+          ::Boards::NotificationCreationJob.perform_later(
+            board_slug:         context.board_slug,
+            notification_attrs: {
+              type: :error,
+              text: I18n.t('notes.create.messages.error')
+            }
           )
 
           context.fail!

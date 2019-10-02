@@ -23,7 +23,7 @@ module Services
           notification           = OpenStruct.new(context.notification_attrs)
           notification_decorator = ::Boards::NotificationDecorator.new(notification)
 
-          ApplicationController.renderer.new.render 'boards/notifications/_notification',
+          ApplicationController.renderer.new.render 'boards/board/_notification',
             layout: false,
             locals: { notification_decorator: notification_decorator }
         end

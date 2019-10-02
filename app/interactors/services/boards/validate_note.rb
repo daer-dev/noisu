@@ -22,9 +22,11 @@ module Services
         def notify_errors!
           if context.board_slug.present? && context.errors.present?
             ::Boards::NotificationCreationJob.perform_later(
-              board_slug: context.board_slug,
-              type:       :error,
-              text:       ValidationErrorsDecorator.new(context.errors).full_messages_html
+              board_slug:         context.board_slug,
+              notification_attrs: {
+                type: :error,
+                text: ValidationErrorsDecorator.new(context.errors).full_messages_html
+              }
             )
           end
         end

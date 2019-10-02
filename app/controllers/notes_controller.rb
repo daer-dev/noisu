@@ -16,15 +16,19 @@ class NotesController < ApplicationController
       )
 
       Boards::NotificationCreationJob.perform_later(
-        board_slug: params[:board_slug],
-        type:       :info,
-        text:       I18n.t('notes.create.messages.pending')
+        board_slug:         params[:board_slug],
+        notification_attrs: {
+          type: :info,
+          text: I18n.t('notes.create.messages.pending')
+        }
       )
     else
       Boards::NotificationCreationJob.perform_later(
-        board_slug: params[:board_slug],
-        type:       :error,
-        text:       I18n.t('notes.create.messages.error')
+        board_slug:         params[:board_slug],
+        notification_attrs: {
+          type: :error,
+          text: I18n.t('notes.create.messages.error')
+        }
       )
 
       redirect_to boards_path(params[:board_slug])
