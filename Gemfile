@@ -22,7 +22,10 @@ gem "fasterer",             "0.5.0"
 gem "interactor",           "3.1.1"
 
 group :development, :test do
-  gem "byebug", platform: :mri
+  gem "byebug",            platform: :mri
+  gem "rspec-rails",       "3.9.0"
+  gem "factory_bot_rails", "5.1.1"
+  gem "database_cleaner",  "1.7.0"
 end
 
 group :development do
