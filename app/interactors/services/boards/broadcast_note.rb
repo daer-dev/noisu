@@ -5,6 +5,8 @@ module Services
     class BroadcastNote
       include Interactor
 
+      before :check_needed_params!
+
       def call
         if self.broadcast!
           ::Boards::NotificationCreationJob.perform_later(
@@ -28,6 +30,11 @@ module Services
       end
 
       protected
+
+        def check_needed_params!
+          context.fail! if context.board_slug.blank? ||
+                           context.note.blank?
+        end
 
         def broadcast!
           BoardsNotesChannel.broadcast_to(context.note.board.broadcast, html: self.note_html)

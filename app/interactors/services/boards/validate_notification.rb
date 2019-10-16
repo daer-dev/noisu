@@ -5,6 +5,8 @@ module Services
     class ValidateNotification
       include Interactor
 
+      before :check_needed_params!
+
       def call
         notification_validator = ::Boards::NotificationValidator.new(context.notification_attrs)
 
@@ -14,6 +16,12 @@ module Services
           context.fail!
         end
       end
+
+      protected
+
+        def check_needed_params!
+          context.fail! if context.notification_attrs.blank?
+        end
     end
   end
 end

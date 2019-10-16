@@ -5,6 +5,8 @@ module Services
     class ValidateNote
       include Interactor
 
+      before :check_needed_params!
+
       def call
         note_validator = ::Boards::NoteValidator.new(context.note_attrs)
 
@@ -18,6 +20,10 @@ module Services
       end
 
       protected
+
+        def check_needed_params!
+          context.fail! if context.note_attrs
+        end
 
         def notify_errors!
           if context.board_slug.present? && context.errors.present?

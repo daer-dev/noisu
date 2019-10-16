@@ -5,9 +5,9 @@ module Services
     class PersistNote
       include Interactor
 
-      def call
-        context.fail! if context.board_slug.blank?
+      before :check_needed_params!
 
+      def call
         context.board = Board.friendly.find(context.board_slug)
 
         context.note  = Note.new(context.note_attrs.merge(board: context.board))
@@ -16,8 +16,15 @@ module Services
       end
 
       def rollback
-        context.note.destroy
+        context.note.destroy if context.note.present? && context.note.persisted?
       end
+
+      protected
+
+        def check_needed_params!
+          context.fail! if context.board_slug.blank? ||
+                           context.note_attrs.blank?
+        end
     end
   end
 end

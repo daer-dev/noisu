@@ -7,11 +7,18 @@ module Services
     class BroadcastNotification
       include Interactor
 
+      before :check_needed_params!
+
       def call
         context.fail! unless self.broadcast!
       end
 
       protected
+
+        def check_needed_params!
+          context.fail! if context.board_slug.blank? ||
+                           context.notification_attrs.blank?
+        end
 
         def broadcast!
           board = Board.friendly.find(context.board_slug)
