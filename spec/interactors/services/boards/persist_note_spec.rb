@@ -19,7 +19,7 @@ describe ::Services::Boards::PersistNote do
         expect(context.board).to eq(board)
       end
 
-      it "sets the privoded attrs to the created note" do
+      it "sets the provided attrs to the created note" do
         expect(context.note.attributes.except("id")).to eq(note_attrs)
       end
 
