@@ -6,6 +6,11 @@ SHELL:=/bin/bash
 help:  ## Displays this help.
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n\nTargets:\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
 
+.PHONY: install
+install: ## Builds the development enviroment.
+	$(info Building development environment...)
+	@docker-compose build
+
 .PHONY: start
 start: ## Starts the development server.
 	$(info Starting the development server...)
@@ -16,29 +21,29 @@ prune: ## Deletes all Docker's containers, networks, volumes, images and cache.
 	$(info Removing all Docker related info...)
 	@docker system prune -af --volumes
 
-.PHONY: open-container
-open-container: ## Connects to the container specified in the environment var "CONTAINER_NAME".
+.PHONY: conn
+conn: ## Connects to the container specified in the environment var "CONTAINER_NAME".
 	$(info Connecting to "$(CONTAINER_NAME)" container...)
 	@docker-compose run --no-deps --rm $(CONTAINER_NAME) bash -l
 
 .PHONY: web
 web:  ## Connects to the web container.
-	@CONTAINER_NAME=web make open-container
+	@CONTAINER_NAME=web make conn
 
-.PHONY: install
-install:  ## Checks and installs dependencies.
-	$(info Checking and installing dependencies...)
-	@make web "bundle check || bundle install"
+.PHONY: gems
+gems:  ## Checks and installs new gems.
+	$(info Checking and installing gems...)
+	@docker-compose run --rm web bundle check || bundle install
 
 .PHONY: test-setup
 test-setup: ## Prepares the test suite environment.
 	$(info Setting up the test environment...)
-	@make web "RAILS_ENV=test rake db:drop && RAILS_ENV=test rake db:create && RAILS_ENV=test rake db:schema:load"
+	@docker-compose run --rm web bundle exec rake db:drop db:create db:migrate RAILS_ENV=test
 
 .PHONY: test
 test: ## Starts the test runner.
 	$(info Running tests...)
-	@make web rspec
+	@docker-compose run --rm web bin/rspec
 
 .PHONY: heroku-login
 heroku-login: ## Identifies the user into Heroku.
