@@ -45,6 +45,11 @@ test: ## Starts the test runner.
 	$(info Running tests...)
 	@docker-compose run --rm web bin/rspec
 
+.PHONY: circleci
+circleci: ## Executes CircleCI locally. It depends on its CLI: https://circleci.com/docs/2.0/local-cli/
+	$(info Running CircleCI...)
+	@circleci local execute --job build
+
 .PHONY: heroku-login
 heroku-login: ## Identifies the user into Heroku.
 	$(info Connecting to Heroku...)

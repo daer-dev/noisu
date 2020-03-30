@@ -3,26 +3,33 @@ jobs:
   build:
     machine: true
     steps:
+      - run:
+          name: "[LOCAL BUILDS ONLY] Cloning remote repo..."
+          command: |
+            if [[ ${CIRCLE_SHELL_ENV} =~ "localbuild" ]]; then
+              mkdir ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+              git clone $CIRCLE_REPOSITORY_URL /tmp/_circleci_local_build_repo
+            fi
       - checkout
       - restore_cache:
           keys:
             - gem-cache-v2-{{ checksum "Gemfile.lock" }}
       - run:
-          name: "Setting up the test environment"
+          name: "Setting up the test environment..."
           command: |
             cp .env.example .env
-            make test_setup
+            make test-setup
       - save_cache:
           key: gem-cache-v2-{{ checksum "Gemfile.lock" }}
           paths:
             - ./.bundle
       - run:
-          name: "Setup Code Climate test-reporter"
+          name: "Setting up CodeClimate test-reporter..."
           command: |
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
             chmod +x ./cc-test-reporter
       - run:
-          name: "Running test"
+          name: "Running tests..."
           command: |
             ./cc-test-reporter before-build
             make test
