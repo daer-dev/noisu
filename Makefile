@@ -38,7 +38,7 @@ gems:  ## Checks and installs new gems.
 .PHONY: test-setup
 test-setup: ## Prepares the test suite environment.
 	$(info Setting up the test environment...)
-	@docker-compose run --rm web bundle exec rake db:drop db:create db:migrate RAILS_ENV=test
+	@docker-compose run --rm web bundle exec rails db:drop db:create db:migrate RAILS_ENV=test
 
 .PHONY: test
 test: ## Starts the test runner.

@@ -4,7 +4,7 @@ Colaborative boards, no limits!
 
 ## Intro
 
-This project is heavily based on Docker, and after building the environment you'd be unable to even execute Git locally due to Overcommit's hooks. To use it properly you'd be forced to do it inside the "web" container, so using the following "make" command will come in handy:
+This project is heavily based on Docker, and **after building the environment** you'd be unable to even execute Git locally due to Overcommit's hooks. To use it properly you'd be forced to do it inside the "web" container, so using the following "make" command will come in handy:
 
 ```bash
 make web
