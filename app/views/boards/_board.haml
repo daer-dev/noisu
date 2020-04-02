@@ -1,3 +1,3 @@
-= render 'boards/board/layout', broadcast: board.broadcast do
+= render 'boards/board/layout', board_decorator: Boards::BoardDecorator.new(board) do
   = render 'boards/board/notes', notes: board.notes
   = render 'boards/board/notes', notes: board.sources_notes

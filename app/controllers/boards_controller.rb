@@ -4,7 +4,10 @@ class BoardsController < ApplicationController
   before_action :set_new_note
 
   def index
-    @boards = Board.all
+    board            = Board.new(public_board: true)
+    @board_decorator = Boards::BoardDecorator.new(board)
+
+    @boards          = Board.all
   end
 
   def show
