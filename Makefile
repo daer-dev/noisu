@@ -11,7 +11,7 @@ help:  ## Displays this help.
 
 install: ## Builds the development enviroment.
 	$(info Building development environment...)
-	@docker-compose build
+	@cp .env.example .env && docker-compose build
 
 start: ## Starts the development server.
 	$(info Starting the development server...)
@@ -39,10 +39,6 @@ test-setup: install ## Installs and prepares the test suite environment.
 test: ## Starts the test runner.
 	$(info Running tests...)
 	@docker-compose run --rm web bin/rspec
-
-circleci: ## Executes CircleCI locally. It depends on its CLI: https://circleci.com/docs/2.0/local-cli/
-	$(info Running CircleCI...)
-	@circleci local execute --job build
 
 heroku-login: ## Identifies the user into Heroku.
 	$(info Connecting to Heroku...)

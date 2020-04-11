@@ -20,7 +20,7 @@ To know other useful commands, execute "make" or inspect the "Makefile" file.
     * Docker Compose: https://docs.docker.com/compose/install/
     * Git: https://www.atlassian.com/es/git/tutorials/install-git
 - Integration:
-    * CircleCI-CLI: https://circleci.com/docs/2.0/local-cli/
+    * CircleCI: https://circleci.com/docs/2.0/getting-started/#section=getting-started
 - Deployment:
     * Heroku-CLI: https://devcenter.heroku.com/articles/heroku-cli#download-and-install
 
