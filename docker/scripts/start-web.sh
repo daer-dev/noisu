@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ -f tmp/pids/server.pid ]; then
- rm -f -f tmp/pids/server.pid
+  rm -f -f tmp/pids/server.pid
 fi
 
 bundle check || bundle install

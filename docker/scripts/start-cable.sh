@@ -2,4 +2,4 @@
 
 bundle check || bundle install
 
-puma -p $ACTION_CABLE_PORT cable/config.ru
+bundle exec puma -p $ACTION_CABLE_PORT cable/config.ru

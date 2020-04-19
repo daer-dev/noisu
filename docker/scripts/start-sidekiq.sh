@@ -2,4 +2,4 @@
 
 bundle check || bundle install
 
-sidekiq -C config/sidekiq.yml.erb
+bundle exec sidekiq -C config/sidekiq.yml.erb

@@ -1,3 +1,3 @@
 #!/bin/bash
 
-redis-server --requirepass $REDIS_PASSWORD
+bundle exec redis-server --requirepass $REDIS_PASSWORD
