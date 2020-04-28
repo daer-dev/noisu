@@ -9,7 +9,6 @@ Bundler.require(*Rails.groups)
 
 module Noisu
   class Application < Rails::Application
-    # Settings in "config/environments/*" take precedence over those specified here.
-    # The general app configuration is splitted in initializers.
+    config.friendly_id = config_for(:friendly_id)
   end
 end

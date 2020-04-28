@@ -7,7 +7,7 @@ module SluggedName
     extend FriendlyId
 
     # We set our reserved words like this to avoid overwriting/repeating the Rails default ones.
-    friendly_id_config.reserved_words.concat((ENV["FRIENDLY_ID_RESERVED_WORDS"] || []).split(","))
+    friendly_id_config.reserved_words.concat((Rails.configuration.friendly_id[:reserved_words] || []).split(","))
 
     friendly_id :slug_candidates, use: :slugged
 

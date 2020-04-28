@@ -3,7 +3,7 @@ verify_signatures: false
 
 PreCommit:
 
-  # DISABLED HOOKS:
+  # DISABLED HOOKS:
   AuthorName:
     enabled: false
   AuthorEmail:

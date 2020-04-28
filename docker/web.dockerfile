@@ -5,9 +5,9 @@ ARG precompile_assets
 MAINTAINER Daniel Herrero <daniel.herrero.101@gmail.com>
 
 # Installs all the system's dependencies:
-#   - Libxml & Libxslt: Nokogiri gem.
-#   - Yarn, NodeJS & Gcompat: Webpack.
-#   - Tzdata & Postgresql-dev: Rails gems.
+#   - Libxml & Libxslt: Nokogiri gem.
+#   - Yarn, NodeJS & Gcompat: Webpack.
+#   - Tzdata & Postgresql-dev: Rails gems.
 RUN apk add --update --no-cache \
       build-base \
       less \
@@ -26,7 +26,7 @@ ENV     INSTALL_PATH /noisu
 RUN     mkdir -p $INSTALL_PATH
 WORKDIR $INSTALL_PATH
 
-# Updates the gem system to avoid incompatibilities with the defined Ruby version and installs all the gems.
+# Updates the gem system to avoid incompatibilities with the defined Ruby version and installs all the gems.
 COPY Gemfile Gemfile.lock ./
 RUN  gem update --system && gem install bundler
 RUN  bundle install

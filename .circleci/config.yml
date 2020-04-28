@@ -7,7 +7,7 @@ jobs:
       - run:
           name: "Setting environment variables..."
           command: |
-            cp .env.test .env
+            cp .env.example .env
             export $(grep -v '^#' .env)
       - restore_cache:
           keys:

@@ -5,9 +5,9 @@ SHELL:=/bin/bash
 # Commands to be shown when running "make help".
 .PHONY: help install start prune conn web gems test-setup test circleci
 .PHONY: heroku-login heroku-create-app heroku-send-vars heroku-push heroku-deploy heroku-restart heroku-open heroku-log heroku-bash heroku-vars
-.PHONY: docker-push-images
+.PHONY: docker-push-images k8s-start k8s-create k8s-create-secrets k8s-setup
 
-check-var-%: ## Checks if variable exists.
+check-var-%: ## Checks if variable exists.
 	@: $(if $(value $*),,$(error $* is undefined))
 
 help:  ## Displays this help.
@@ -15,7 +15,7 @@ help:  ## Displays this help.
 
 install: ## Builds the development enviroment.
 	$(info Building development environment...)
-	@cp .env.example .env && docker-compose build
+	@cp .env.dev.example .env && docker-compose build
 
 start: ## Starts the development server.
 	$(info Starting the development server...)
@@ -84,6 +84,20 @@ heroku-vars:| check-var-HEROKU_PROJECT_NAME ## Returns the value of every enviro
 	$(info Opening log...)
 	@heroku config -a $(HEROKU_PROJECT_NAME)
 
-docker-push-images:| check-var-DOCKERHUB_PREFIX ## Pushes both Redis and Web images to DockerHub. The "DOCKERHUB_PREFIX" arg should be in "user_in_dockerhub/any_prefix-" format (e.g., dherrer101/noisu).
+docker-push-images:| check-var-DOCKERHUB_PREFIX ## Pushes both Redis and Web images to DockerHub. The "DOCKERHUB_PREFIX" arg should be in "user_in_dockerhub/any_prefix-" format (e.g., dherrer101/noisu).
 	$(info Pushing web & redis images to DockerHub...)
 	@./docker/scripts/push-docker-images.sh $(DOCKERHUB_PREFIX)
+
+k8s-start: ## Starts Minikube with Docker.
+	$(info Starting Minikube...)
+	@minikube start --driver=docker
+
+k8s-create: ## Creates all the Kubernetes objects related to the project.
+	$(info Creating Kubernetes objects...)
+	@kubectl create -f k8s/web/* -f k8s/postgres/* -f ./k8s/redis/* -f ./k8s/sidekiq/* -f ./k8s/cable/* &&  \
+
+k8s-create-secrets: ## Creates Kubernetes secrets with the content of the ".env" file.
+	$(info Creating Kubernetes secrets from ".env" file...)
+	@kubectl create secret generic secrets --from-env-file=.env
+
+k8s-setup: k8s-start k8s-create k8s-create-secrets ## Starts Minikube and creates Kubernetes objects and secrets.

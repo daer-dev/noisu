@@ -1,0 +1,11 @@
+default: &default
+  reserved_words: noisu
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default

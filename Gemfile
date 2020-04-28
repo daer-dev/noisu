@@ -29,11 +29,11 @@ group :development, :test do
 end
 
 group :development do
-  gem "rack-mini-profiler"     #  Alt+P to disable it.
+  gem "rack-mini-profiler"     #  Alt+P to disable it.
   gem "stackprof"
-  gem "memory_profiler"        #  "?pp=profile-memory" in the URL for more info.
-  gem "flamegraph"             #  "?pp=flamegraph" in the URL for more info.
-  gem "pry-rails"              #  "binding.pry" as a breakpoint in code. "disable-pry" in the CLI to skip all breakpoints.
+  gem "memory_profiler"        #  "?pp=profile-memory" in the URL for more info.
+  gem "flamegraph"             #  "?pp=flamegraph" in the URL for more info.
+  gem "pry-rails"              #  "binding.pry" as a breakpoint in code. "disable-pry" in the CLI to skip all breakpoints.
   gem "pry-remote"
   gem "pry-nav"
   gem "spring"

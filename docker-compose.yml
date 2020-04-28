@@ -27,7 +27,7 @@ services:
     volumes:
       - bundle_cache:/bundle
       - .:/noisu
-      # SSH files to communicate with the outer world within the web container.
+      # SSH files to communicate with the outer world within the web container.
       - ~/.ssh/id_rsa:/root/.ssh/id_rsa
       - ~/.ssh/id_rsa.pub:/root/.ssh/id_rsa.pub
       - ~/.ssh/known_hosts:/root/.ssh/known_hosts

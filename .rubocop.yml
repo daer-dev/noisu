@@ -1,9 +1,9 @@
 inherit_gem:
   rubocop-rails_config:
     - config/rails.yml
-inherit_from: .rubocop_todo.yml # Writes a file with the offenses detected and excludes the affected files from future executions.
+inherit_from: .rubocop_todo.yml # Writes a file with the offenses detected and excludes the affected files from future executions.
 
-# DISABLED COPS.
+# DISABLED COPS.
 Documentation: # Checks if the top level modules / classes have a comment.
   Enabled: false
 OrderedGems:   # Checks if the gems are ordered alfabetically.
@@ -32,7 +32,7 @@ Style/ClassAndModuleChildren:
 Metrics/LineLength:
   Enabled:         true
   Max:             150
-  IgnoredPatterns: [ '(\A|\s)#' ] # Ignores comments.
+  IgnoredPatterns: [ '(\A|\s)#' ] # Ignores comments.
 
 Metrics/MethodLength:
   Enabled: true

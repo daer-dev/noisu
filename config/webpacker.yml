@@ -43,8 +43,8 @@ development:
   compile:            true
   cache_manifest:     false
   dev_server:
-    # Host and port are set in the "webpack-dev-server" run script, as it's impossible to convert this file to ERB
-    # and therefore retrieve them from an env var. Explanation: https://github.com/rails/webpacker/issues/956
+    # Host and port are set in the "webpack-dev-server" run script, as it's impossible to convert this file to ERB
+    # and therefore retrieve them from an env var. Explanation: https://github.com/rails/webpacker/issues/956
     https:              false
     hmr:                true
     inline:             true         # Inline should be set to true if using HMR.

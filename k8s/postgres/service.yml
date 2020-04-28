@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  labels:
+    app: noisu
+spec:
+  ports:
+    - port: 5432
+  selector:
+    app: noisu
+    tier: postgres
