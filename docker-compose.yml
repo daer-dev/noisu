@@ -11,7 +11,7 @@ services:
   web:
     build:
       context:    .
-      dockerfile: ./docker/web.dev.dockerfile
+      dockerfile: ./docker/web.dockerfile
     env_file:   ./.env
     command:    ./docker/scripts/start-web.sh
     tty:        true
@@ -21,17 +21,11 @@ services:
       - redis
       - sidekiq
       - cable
-      - webpack
     ports:
       - ${BIND_ON_PORT?}:${BIND_ON_PORT?}
     volumes:
       - bundle_cache:/bundle
       - .:/noisu
-      # SSH files to communicate with the outer world within the web container.
-      - ~/.ssh/id_rsa:/root/.ssh/id_rsa
-      - ~/.ssh/id_rsa.pub:/root/.ssh/id_rsa.pub
-      - ~/.ssh/known_hosts:/root/.ssh/known_hosts
-      - ~/.ssh/authorized_keys:/root/.ssh/authorized_keys
 
   postgres:
     image:    postgres:11-alpine
@@ -56,7 +50,7 @@ services:
   sidekiq:
     build:
       context:    .
-      dockerfile: ./docker/web.dev.dockerfile
+      dockerfile: ./docker/web.dockerfile
     env_file: ./.env
     command:  ./docker/scripts/start-sidekiq.sh
     depends_on:
@@ -69,25 +63,13 @@ services:
   cable:
     build:
       context:    .
-      dockerfile: ./docker/web.dev.dockerfile
+      dockerfile: ./docker/web.dockerfile
     env_file: ./.env
     command:  ./docker/scripts/start-cable.sh
     depends_on:
       - redis
     ports:
       - ${ACTION_CABLE_PORT?}:${ACTION_CABLE_PORT?}
-    volumes:
-      - bundle_cache:/bundle
-      - .:/noisu
-
-  webpack:
-    build:
-      context: .
-      dockerfile: ./docker/web.dev.dockerfile
-    env_file: ./.env
-    command:  ./docker/scripts/start-webpack-dev.sh
-    ports:
-      - ${WEBPACK_PORT?}:${WEBPACK_PORT?}
     volumes:
       - bundle_cache:/bundle
       - .:/noisu

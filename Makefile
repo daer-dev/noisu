@@ -3,7 +3,7 @@ SHELL:=/bin/bash
 .DEFAULT_GOAL:=help
 
 # Commands to be shown when running "make help".
-.PHONY: help install start prune conn web gems test-setup test circleci
+.PHONY: help install install-dev start start-dev prune conn web gems test-setup test-setup-dev test circleci
 .PHONY: heroku-login heroku-create-app heroku-send-vars heroku-push heroku-deploy heroku-restart heroku-open heroku-log heroku-bash heroku-vars
 .PHONY: docker-push-images k8s-start k8s-create k8s-create-secrets k8s-setup
 
@@ -13,13 +13,23 @@ check-var-%: ## Checks if variable exists.
 help:  ## Displays this help.
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n\nTargets:\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
 
-install: ## Builds the development enviroment.
-	$(info Building development environment...)
-	@cp .env.dev.example .env && docker-compose build
+install: ## Builds the production enviroment.
+	$(info Building production environment...)
+	@cp .env.example .env && \
+	 docker-compose build
 
-start: ## Starts the development server.
-	$(info Starting the development server...)
+install-dev: ## Builds the development enviroment.
+	$(info Building development environment...)
+	@cp .env.dev.example .env && \
+	 docker-compose -f docker-compose.yml -f docker-compose.dev.yml build
+
+start: ## Starts the production server.
+	$(info Starting the production server...)
 	@docker-compose up
+
+start-dev: ## Starts the development server.
+	$(info Starting the development server...)
+	@docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
 
 prune: ## Deletes all Docker's containers, networks, volumes, images and cache.
 	$(info Removing all Docker related info...)
