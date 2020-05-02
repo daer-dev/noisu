@@ -1,4 +1,4 @@
-version: '3'
+version: '3.3'
 
 volumes:
 
@@ -12,6 +12,8 @@ services:
     build:
       context:    .
       dockerfile: ./docker/web.dockerfile
+    labels:
+      - noisu
     env_file:   ./.env
     command:    ./docker/scripts/start-web.sh
     tty:        true
@@ -28,6 +30,8 @@ services:
       - .:/noisu
 
   postgres:
+    labels:
+        - noisu
     image:    postgres:11-alpine
     env_file: ./.env
     restart:  always
@@ -40,6 +44,8 @@ services:
     build:
       context:    .
       dockerfile: ./docker/redis.dockerfile
+    labels:
+      - noisu
     env_file: ./.env
     command:  ./docker/scripts/start-redis.sh
     ports:
@@ -51,6 +57,8 @@ services:
     build:
       context:    .
       dockerfile: ./docker/web.dockerfile
+    labels:
+      - noisu
     env_file: ./.env
     command:  ./docker/scripts/start-sidekiq.sh
     depends_on:
@@ -64,6 +72,8 @@ services:
     build:
       context:    .
       dockerfile: ./docker/web.dockerfile
+    labels:
+      - noisu
     env_file: ./.env
     command:  ./docker/scripts/start-cable.sh
     depends_on:
