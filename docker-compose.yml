@@ -31,7 +31,7 @@ services:
 
   postgres:
     labels:
-        - noisu
+      - noisu
     image:    postgres:11-alpine
     env_file: ./.env
     restart:  always

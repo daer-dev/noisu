@@ -1,9 +1,5 @@
 # Noisu
 
-Colaborative boards, no limits!
-
-## Intro
-
 This project is heavily based on Docker, and **after building the environment** you'd be unable to even execute Git locally due to Overcommit's hooks. To use it properly you'd be forced to do it inside the "web" container, so using the following "make" command will come in handy:
 
 ```bash
@@ -17,12 +13,13 @@ To know other useful commands, execute "make" or inspect the "Makefile" file.
 ## Dependencies
 
 - Development:
-    * Docker Compose: https://docs.docker.com/compose/install/
-    * Git: https://www.atlassian.com/es/git/tutorials/install-git
+    * [Docker Compose](https://docs.docker.com/compose/install/).
+    * [Git](https://www.atlassian.com/es/git/tutorials/install-git).
 - Integration:
-    * CircleCI: https://circleci.com/docs/2.0/getting-started/#section=getting-started
+    * [CircleCI](https://circleci.com/docs/2.0/getting-started/#section=getting-started).
 - Deployment:
-    * Heroku-CLI: https://devcenter.heroku.com/articles/heroku-cli#download-and-install
+    * [Heroku-CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install).
+    * [Kubernetes](https://kubernetes.io).
 
 ## Badges
 

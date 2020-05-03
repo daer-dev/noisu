@@ -11,7 +11,7 @@ ENV_FILE?=.env.example
 DOCKER_COMPOSE_OPTIONS?=-f docker-compose.yml
 DOCKER_COMPOSE_OPTIONS_DEV=-f docker-compose.yml -f docker-compose.dev.yml
 
-check-var-%: ## Checks if variable exists.
+check-var-%: ## Checks if a variable exists (using it like "| check-var-VAR_NAME").
 	@: $(if $(value $*),,$(error $* is undefined))
 
 help:  ## Displays this help.
@@ -25,11 +25,11 @@ install: ## Builds the enviroment with the settings specified in the env var "EN
 install-dev:  ## Builds the development enviroment.
 	@ENV_FILE=.env.dev.example DOCKER_COMPOSE_OPTIONS="$(DOCKER_COMPOSE_OPTIONS_DEV)" make install
 
-start:| check-var-DOCKER_COMPOSE_OPTIONS ## Starts the server with Docker.
+start:| check-var-DOCKER_COMPOSE_OPTIONS ## Starts the server.
 	$(info Starting server...)
 	@docker-compose $(DOCKER_COMPOSE_OPTIONS) up
 
-start-dev:  ## Builds the development enviroment.
+start-dev:  ## Starts the development server.
 	@DOCKER_COMPOSE_OPTIONS="$(DOCKER_COMPOSE_OPTIONS_DEV)" make start
 
 prune: ## Deletes all Docker's containers, networks, volumes, images and cache.
@@ -96,7 +96,7 @@ heroku-vars:| check-var-HEROKU_PROJECT_NAME ## Returns the value of every enviro
 	$(info Opening log...)
 	@heroku config -a $(HEROKU_PROJECT_NAME)
 
-docker-push-images:| check-var-DOCKERHUB_PREFIX ## Pushes both Redis and Web images to DockerHub. The "DOCKERHUB_PREFIX" arg should be in "user_in_dockerhub/any_prefix-" format (e.g., dherrer101/noisu).
+docker-push-images:| check-var-DOCKERHUB_PREFIX ## Pushes both Redis and Web images to DockerHub. The "DOCKERHUB_PREFIX" arg should be in "user_in_dockerhub/any_prefix-" format (e.g., dherrero101/noisu).
 	$(info Pushing web & redis images to DockerHub...)
 	@./docker/scripts/push-docker-images.sh $(DOCKERHUB_PREFIX)
 

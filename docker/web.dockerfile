@@ -1,7 +1,5 @@
 FROM ruby:2.6.3-alpine
 
-ARG precompile_assets
-
 MAINTAINER Daniel Herrero <daniel.herrero.101@gmail.com>
 
 # Installs all the system's dependencies:
@@ -10,7 +8,6 @@ MAINTAINER Daniel Herrero <daniel.herrero.101@gmail.com>
 #   - Tzdata & Postgresql-dev: Rails gems.
 RUN apk add --update --no-cache \
       build-base \
-      less \
       libxml2-dev \
       libxslt-dev \
       tzdata \
