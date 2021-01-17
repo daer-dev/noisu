@@ -1,6 +1,6 @@
 FROM redis:5.0.3-alpine
 
-MAINTAINER Daniel Herrero <daniel.herrero.101@gmail.com>
+LABEL maintainer="Daniel Herrero <daniel.herrero.101@gmail.com>"
 
 ENV     INSTALL_PATH /noisu
 RUN     mkdir -p $INSTALL_PATH

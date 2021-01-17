@@ -16,8 +16,6 @@ gem "friendly_id",          "5.2.5"
 gem "webpacker",            "4.0.7"
 gem "rubocop",              "0.74.0"
 gem "rubocop-rails_config", "0.7.1"
-gem "overcommit",           "0.49.1"
-gem "bundler-audit",        "0.6.1"
 gem "fasterer",             "0.5.0"
 gem "interactor",           "3.1.1"
 
@@ -29,6 +27,8 @@ group :development, :test do
 end
 
 group :development do
+  gem "overcommit"
+  gem "bundler-audit"
   gem "rack-mini-profiler"     #  Alt+P to disable it.
   gem "stackprof"
   gem "memory_profiler"        #  "?pp=profile-memory" in the URL for more info.

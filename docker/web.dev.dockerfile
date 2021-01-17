@@ -1,6 +1,6 @@
 FROM ruby:2.6.3-alpine
 
-MAINTAINER Daniel Herrero <daniel.herrero.101@gmail.com>
+LABEL maintainer="Daniel Herrero <daniel.herrero.101@gmail.com>"
 
 # Installs all the system's dependencies:
 #   - Git, SSH & Vim: Git's use, needed inside the container due to Overcommit. Less for colored diffs.

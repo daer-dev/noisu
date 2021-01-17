@@ -1,6 +1,6 @@
 FROM ruby:2.6.3-alpine
 
-MAINTAINER Daniel Herrero <daniel.herrero.101@gmail.com>
+LABEL maintainer="Daniel Herrero <daniel.herrero.101@gmail.com>"
 
 # Installs all the system's dependencies:
 #   - Libxml & Libxslt: Nokogiri gem.
@@ -30,6 +30,4 @@ RUN  bundle install
 
 COPY . .
 
-CMD RAILS_ENV=production rails assets:precompile
-
-CMD puma -C config/puma.rb
+CMD RAILS_ENV=production rails assets:precompile && puma -C config/puma.rb
